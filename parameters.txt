@@ -1,0 +1,14 @@
+<ECF>
+        <Genotype>
+                <Tree>
+                        <Entry key="maxdepth">4</Entry>
+                        <Entry key="mindepth">1</Entry>
+                        <Entry key="functionset">sqrt log iflte max min ifpos sin cos + - * /</Entry>
+                        <Entry key="terminalset">X0 X1 X2 X3</Entry>
+                </Tree>
+        </Genotype>
+        <Registry>
+                <Entry key="classesNum">2</Entry>
+        </Registry>
+
+</ECF>
