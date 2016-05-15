@@ -17,7 +17,7 @@ public:
         getNextArgument(&third, tree);
         getNextArgument(&fourth, tree);
 
-        result = first > second ? third : fourth;
+        result = first <= second ? third : fourth;
     }
 
     ~IfLessThanEq()

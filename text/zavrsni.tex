@@ -211,6 +211,94 @@ Parametri se zadaju u konfiguracijskoj datoteci XML formata (engl. \textit{Exten
 \caption{Primjer konfiguracijske datoteke}
 \end{figure}
 
+\section{Korišteni klasifikatori}
+
+
+
+
+U ovom radu ćemo implementirati dva različita klasifikatora genetskog programiranja. To su :
+
+\begin{itemize}
+\item Regresijski GP (klasifikacijski aritmetički izrazi)
+\item Regresijski GP uz glasanje - posebno stablo za svaku klasu
+\end{itemize}
+
+
+\section{Funkcije čvorova}
+
+Regresijska stabla se sastoje od od skupa funkcijskih znakova i skupa završnih znakova. U skup završnih znakova spadaju atributi klasifikacijskog problema. Ako je ukupan broj atributa jednak n varijable tada imaju oznake od $x_0$ do $x_{n-1}$. Prilikom evaluacije za vrijednosti varijabli iz skupa završnih znakova uzimaju se odgovarajuće vrijednosti iz skupa podataka definiranih za svaki primjer klasifikacije. U skup funkcijskih znakova spadaju:
+
+\begin{itemize}
+\item Aritmetički operatori
+\item Sinus, kosinus
+\item Max, min
+\item Sqrt, Log
+\item IfPositive
+\item IfLessThanEq
+\end{itemize}
+
+U nastavku ćemo se pobliže upoznati s njima.
+
+U aritmetičke operatore koje koristimo spadaju zbrajanje (+), oduzimanje (-), množenje (*) i dijeljenje (/). Pored njih, koristit ćemo i funkcije sinusa i kosinusa. 
+
+Ostale korištene funkcije je potrebno implementirati unutar radnog okruženja ECF-a. Pri tome im je potrebno definirati pridružena svojstva \textbf{nArguments\_} koje označava broj djece koje će čvor s navedenom funkcijom imati te \textbf{name\_} koje označava ime navedene funkcije. U svakoj definiranoj funkciji je potrebno implementirati metodu \textbf{execute} u kojoj vrijednosti čvorova djece dohvaćamo pomoću metode \textbf{getNextArgument}. U svakoj od funkciju čvoru roditelja se šalje vrijednost samo jednog od djece dok se sve ostale čvorove preskače i zanemaruje.
+
+
+\textit{Max} i \textit{Min} funkcije definiraju čvorove koji imaju dvoje djece. \textit{Max} funkcija vraća vrijednost onog djeteta koje ima veću vrijednost, dok \textit{Min} funkcija vraća manju od vrijednosti svoje djece.
+
+
+Funkcija \textit{Sqrt} definira čvor koji ima jedno dijete te vraća korijen apsolutne vrijednosti tog djeteta.
+
+Kod funkcije \textit{Log} je potrebno pripaziti na vrijednost koju joj predajemo. Budući da je logaritamska funkcija definirana samo za pozitivne vrijednosti veće od nule, u slučaju da je vrijednost djeteta manja ili jednaka nuli funkcija vraća logaritam od jedan, to jest nula.
+
+\textit{IfPositive} definira čvor koji ima troje djece. U slučaju da je vrijednost prvog djeteta veća od 0 vraća vrijednost drugog dijeteta, inače vraća vrijednost trećeg.
+
+
+\textit{IfLessThanEq} definira čvor koji ima četvero djece. U slučaju da je vrijednost prvog djeteta manja ili jednaka vrijednosti drugog vraća vrijednost trećeg djeteta, a u suprotnom slučaju vrijednost četvrtog djeteta.
+
+Uvođenje logičkih izraza pored onih aritmetičkih je važno jer omogućava veću raznolikost rješenja i pomaže u preciznijoj evoluciji stabala. 
+
+\section{Funkcije dobrote}
+
+Implementirane su dvije funkcije dobrote, a s kojom radimo ovisi o obliku klasifikatora. 
+
+Za regresijski GP s jednim stablom koristimo funkciju dobrote koja uspoređuje dobiveni razred s onim definiranim u parametarskoj datoteci. Cilj je minimizirati funkciju tako da će u slučaju pogrešnog predviđanja razreda za promatrani primjer funkcija vratiti pozitivnu konstantnu vrijednost, a u slučaju dobrog predviđanja vrijednost nula.
+
+Za regresijski GP uz glasanje gdje imamo posebno stablo za svaku klasu koristimo funkciju dobrote koja računa apsolutne vrijednosti rezultata dobivenih za svako stablo. Ako ono stablo za koje smo dobili minimalnu apsolutnu vrijednost pripada klasi za koju je primjer i definiran smatramo da je klasifikacija uspjela. I u ovoj funkciji je cilj minimizacija.
+
+Opisane funkcije dobrote poprimaju realne vrijednosti u intervalu $[0, +\infty ]$, a manja vrijednost dobrote odgovara boljoj jedinki.
+
+
+\section{Parametri i konfiguracijske datoteke}
+
+Parametre zadajemo u konfiguracijskoj datoteci XML formata koju je potrebno predati prilikom inicijalizaciranja ECF-a. Tu možemo definirati mehanizme križanja, veličinu populacije, vjerojatnost mutacije, minimalnu i maksimalnu dubinu stabla i druge. 
+
+U slučaju ne navođenja nekog od  parametara, uvode se sljedeće pretpostavljene vrijednosti: 
+
+\begin{itemize}
+\item Veličina populacije: 100
+\item Vjerojatnost mutacije: 0.3
+\item Prekid: 50 generacija bez napretka najbolje jedinke
+\end{itemize}
+
+Parametri genotipa koji će nama biti od značaja su \textit{functionset} pomoću kojeg definiramo skup funkcijskih znakova te \textit{terminalset} koji predstavlja skup završnih znakova. Skup završnih znakova ćemo u svim slučajevima definirati oznakama od $x_0$ do $x_{n-1}$ gdje n predstavlja broj atributa problema.
+
+Pored navedenih možemo definirati i parametar \textit{classesNum} koji predstavlja broj klasa koji koristimo u klasificiranju. U slučaju ne navođenja navedenog parametra koristi se pretpostavljena vrijedost dva.
+
+Kod definiranja intervala klasa koristimo datoteku \textit{classes.txt} pomoću koje definiramo sve klase koje koristimo kao i intervale kojima pojedina klasa pripada. U slučaju da datoteka ne postoji, koriste se pretpostavljene klase s oznakama od $0$ do $n-1$ gdje n predstavlja broj klasa definiranih parametrom \textit{classesNum}. Za intervale se koriste potencije broja dva, gdje eksponent intervala odgovara numeričkoj oznaci klase.
+
+Primjer strukture datoteke za definiranje razreda nalazi se na slici !!!!!!!
+
+
+
+
+
+
+ 
+
+
+
+
 \chapter{Primjena i analiza rezultata}
 
 \chapter{Zaključak}
