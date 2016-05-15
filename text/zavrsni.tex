@@ -1,0 +1,236 @@
+\documentclass[times, utf8, zavrsni]{fer}
+\usepackage{booktabs, graphicx}
+% \graphicspath { {/home/ivan/images/ } }
+
+\begin{document}
+
+% TODO: Navedite broj rada.
+\thesisnumber{4334}
+
+% TODO: Navedite naslov rada.
+\title{Primjena genetskog programiranja na problem klasifikacije podataka}
+
+% TODO: Navedite vaše ime i prezime.
+\author{Ivan Vlašić}
+
+\maketitle
+
+% Ispis stranice s napomenom o umetanju izvornika rada. Uklonite naredbu \izvornik ako želite izbaciti tu stranicu.
+\izvornik
+
+% Dodavanje zahvale ili prazne stranice. Ako ne želite dodati zahvalu, naredbu ostavite radi prazne stranice.
+\zahvala{}
+
+\tableofcontents
+
+\chapter{Uvod}
+Klasifikacija je problem razvrstavanja podataka u kategorije na osnovu skupine podataka za učenje čija je podjela već poznata. Kao primjer, koji se u praksi često koristi, možemo navesti prepoznavanje spada li novi email pod neželjeni sadržaj ili ne. Razvojem računarske znanosti, a pogotovo strojnog učenja, došlo je do pojave različitih metoda rješavanja tog problema. Neke su bile više uspješne od drugih. Ovaj rad će pokušati pojasniti rješavanje problema klasifikacije podataka upotrebom genetskog programiranja koje se pokazalo kao dosta precizna metoda, iako može dovesti do problema prevelike složenosti kod velike skupine podataka.
+
+U početku ćemo se upoznati sa problemom klasifikacije, njegovim najčešćim primjenama i prihvaćenim metodama rješavanja te osnovnim karakteristikama genetskog programiranja koje ga čine pogodnim za rješavanje ovog problema. Posebnu pažnju ćemo posvetiti algoritmima klasifikacije u obliku regresijskog modela i logičkih pravila. Pojasniti ćemo programski sustav implementiran uz ovaj rad, modele i operatore koje smo koristili kao i detaljne upute za korištenje. Analizirati će mo rezultate dobivene primjenom navedenog sustava na testne primjere te donijeti zaključke o njegovoj optimiziranosti i kvaliteti dobivenih rješenja.
+
+\chapter{Strojno učenje i problem klasifikacije}
+U ovom poglavlju ćemo dati kratki pregled strojnog učenja i upoznati se sa njegovim vrstama. Objasniti ćemo problem klasifikacije podataka i proučiti njegove najčešće primjene. Na kraju ćemo opisati neke od najznačajnijih algoritama koji se u današnje vrijeme koriste za rješavanje tog problema kao i njihovu uspješnost.
+
+\section{Strojno učenje}
+Strojno učenje je grana računarske znanosti koja se razvila iz prepoznavanja uzoraka i teorije učenja u umjetnoj inteligenciji. Podrazumijeva programiranje računala na način da optimiziraju neki kriterij uspješnosti temeljem podatkovnih primjera ili prethodnog iskustva. Strojno učenje je veliki razvoj doživjelo osamdesetih godina prošlog stoljeća kad se počelo udaljavati od umjetne inteligencije i razvijati kao zasebna grana računarske znanosti.
+
+Strojno učenje možemo podijeliti na nadzirano, nenadzirano i podržano učenje. Nadzirano učenje se koristi ulaznim skupom podataka kako bi učilo i izgradilo model predviđanja. Podaci za učenje se sastoje od primjera koji imaju vektor ulaznih podataka i predviđen izlaz. Algoritmima nadziranog učenja se ti podaci analiziraju i stvara funkciju koja se može koristiti za mapiranje novih primjera. Ovim postupcima mogu se rješavati dvije vrste problema: klasifikacija i regresija. Kod klasifikacije primjeru pridružujemo klasu kojoj taj primjer pripada, dok kod regresije primjeru pridružujemo neku kontinuiranu vrijednost.
+
+Za razliku od nadziranog učenja, nenadzirano učenje ne koristi podatke za učenje. Kod ove vrste učenja dani su nam podaci bez ciljne vrijednosti i naš je zadatak pronaći pravilnosti među njima. Tipično se koristi kod eksplorativne dubinske analize podataka, u biologiji za grupiranje organizama prema njihovim značajkama, grupiranju sličnih dokumenata, grupiranju DNA-mikropolja i slično. Koriste se grupiranje, procjena gustoće i smanjenjenje dimenzionalnosti.
+
+Podržano učenje je učenje strategije na temelju serije izlaza. Tipično se koristi kod igara, robotike i upravljanja te višeagentnih sustava. Pristup temelji na agentima koji ovisno o kvaliteti postignutih rezultata postižu nagrade. Cilj svakog agenta je maksimizirati dobivenu nagradu i time temelji uspjeh svojih strategija. 
+
+\section{Klasifikacija podataka}
+
+Kao što je već objašnjeno u uvodu poglavlja, problemi klasifikacije podataka se rješavaju postupcima nadziranog učenja. Svakom primjeru pridružujemo određenu klasu, odnosno razred kojoj pripada. Primjer možemo definirati kao vektor značajki gdje \textit{n} predstavlja dimneziju vektora, $X = (x_1, x_2,..., x_n)^T$. Vektor predstavlja ulazni prostor (engl. \textit{input space}) ili prostor primjera (engl. \textit{instance space}). Kod nadziranog učenja unaprijed nam je poznata klasa kojoj pripada primjer iz skupa učenja. Cilj klasifikacije je određivanje nepoznatih klasa ili grupa u podacima, to jest svrstati nove, već neviđene podatke u neki od već unaprijed poznatih klasa. Najjednostavniji je slučaj u kojem se podaci moraju svrstati u samo jedan razred. Kod više razreda, radi se o klasifikaciji s višestrukim oznakama. Ako se ograničimo samo na dvije klase, klasifikator nazivamo binarni klasifikator. 
+
+Skup primjera za učenje sastoji se od parova primjera i pripadnih oznaka. Možemo ga prikazati tablično kao:
+
+\begin{center}
+ \begin{tabular}{||c c c c||} 
+ \hline
+ $x_1$ & $x_2$ & ... & y  \\ [0.5ex] 
+ \hline\hline
+ $x_1^{(1)}$ & $x_2^{(1)}$ & ... & $y^{(1)}$ \\ 
+ \hline
+ $x_1^{(2)}$ & $x_2^{(2)}$ & ... & $y^{(1)}$ \\
+ \hline
+ \vdots & \vdots &  & \vdots \\
+ \hline
+ $x_N^{(1)}$ & $x_N^{(1)}$ & ... & $y^{(N)}$ \\ [1ex] 
+ \hline
+\end{tabular}
+\end{center} 
+
+
+gdje je N ukupan broj primjera, a \textit{i} indeks primjera. Skup ulaznih oznaka označavamo s $(x^{(i)})_{i=1}^N$, a izlaznih s \textit{y}. Zadaća klasifikacijskog algoritma jest naučiti hipotezu koja određuje pripada li neki primjer određenoj klasi ili ne. Da bi u tome uspio, potrebno je izgraditi klasifikator. Ako klasifikator dobro generalizira, tada će ispravno klasificirati još neviđene podatke. Važno je napomenuti da uspjeh klasifikatora u velikoj mjeri ovisi o o svojstvima podataka koje je potrebno klasificirati. Ne postoji klasifikator koji radi najbolje za sve probleme (pojava koja je poznatija pod imenom \textit{no free lunch theorem}). Određivanje primjerenog klasifikatora za problem je dosta složen i težak problem koji nije uvijek moguće riješiti. Učenje hipoteze je loše definiran problem (engl. \text1it{ill-based problem}). Primjeri za učenje nisu sami po sebi dovoljni da bi se jednoznačno definirala hipoteza. Svojstvo hipoteze da odredi klase još neviđenih razreda naziva se generalizacija. 
+
+Jedan od glavnih problema do kojih može doći je problem šuma. Šum je neželjena anomalija u podacima koja je uzrokovana različitim uzrocima poput: nepreciznosti pri mjerenju značajki, pogreški u označavanju, nejasnih granica klasa i postojanje skrivenih značajki. U načelu, šum nije moguće razdvojiti od pravih podataka. Danas klasifikacija ima mnoge primjene. Koristi se u računalnom vidu, prepoznavanju govora, klasifikaciji dokumenata i slično. Svi ovi i mnogi drugi problemi se rješavaju različitim algoritmima od kojih svi imaju svoje pozitivne i negativne strane, kao i različite uspješnosti. U sljedećem poglavlju ćemo razmotriti neke od najčešćih algoritama koji se koriste u praksi kao i njihove značajke. 
+
+\section{Najznačajniji algoritmi za rješavanje problema klasifikacije}
+Algoritama za rješavanje problema klasifikacije postoji mnogi. Razlikuju se po svojoj jednostavnosti primjene, točnosti i razumljivosti. Uspješnost algoritama u velikoj mjeri ovisi o problemu kojeg rješavamo. Ponekad nam je važnija brzina kvalifiaktora od njegove točnosti, a u drugi slučajevima je važnije da klasifikator ima veliku točnost nego brzinu ili jednostavnost. Među algoritme linearne klasifikacije spadaju Fisherova linearna diskriminanta, Naivni Bayes klasifikatori koji su se u početku pokazali dosta učinkovitima za rješavanje složenih problema, no detaljna analiza 2006. godine je pokazala da postoje drugi algoritmi koji su dosta bolji, poput algoritma \textit{random forest}. U tu skupinu još spadaju logistička regresija i \textit{perceptron}. Jedan od češće korištenih algoritama je i metoda potpornih vektoar (engl. \textit{Support Vector Machine}) koji se bazira na učenju razdvajanjem funkcija i estimacije funkcije u regresiji. U velikoj upotrebi su i neuronske mreže koje su u širom smislu replika ljudskog mozga kojom se nastoji simulirati postupak učenja. To je skup međusobno povezanih jednostavnih procesnih elemenata koji se nazivaju čvorovi ili neuroni, i čija se funkcionalnost zasniva na biološkom neuronu. Neuronske mreže su vrlo dobre u procjeni nelinearnih odnosa uzoraka, mogu raditi s nejasnim ili manjkavim podacima, mogu raditi s velikim brojem varijabli i prilagođavati se okolini što ih čini pogodnim za probleme klasifikacije. Još neki od poznatijih metoda i algoritama su kvadratna metoda koja je dizajnirana za situacije kada karakteristike svake grupe imaju normalnu distribuciju te metoda kernel procjene.
+
+Za probleme klasifikacije također se može koristiti i genetsko programiranje koje se zasniva na razvoju stabala odluke. Prednost genetskog programiranja leži u činjenici da može otkriti manje vidljive veze između podataka. Važna primjena je postignuta u otkrivanju gena. Više o tome će biti objašnjeno u sljedećih nekoliko poglavlja.
+
+
+\chapter{Genetsko programiranje}
+U ovom poglavlju ćemo se detaljnije upoznati sa genetskim programiranjem i vrstama koje se danas koriste. Objasniti ćemo probleme za čije je rješavanje pogodno genetsko programiranje kao i načini do kojih algoritmi dolaze do rješenja.
+
+Genetsko programiranje je optimizacijska tehnika koja spada pod skupinu evolucijskih algoritama. Radi na principu simulacije evolucije, bolja rješenja preživljavaju i svoja svojstva prenose u sljedeće generacije dok loša izumiru. Kao i u prirodi, koriste se mehanizmi selekcije, križanja i mutacije čime možemo doći do raznolikog broja jedinki i uspješno se približiti dovoljno dobrom rješenju promatranog problema. Razvoj genetskog programiranja možemo pratiti od pedesetih godina prošlog stoljeća, no tek šezdesetih i sedamdesetih godina su postali šire prepoznati kao pogodna tehnika za rješavanje optimizacijskih problema. Većem napretku je pridonio John R. Koza koji je GP primjenio na velikom broju optimizacijskih problema i problema pretraživanja različite složenosti. Devedesetih se genetsko programiranje uglavnom koristilo za relativno jednostavne probleme budući da su izračuni dosta računalno intezivni čemu računala tog doba nisu bila dorasla. U zadnjim godinama, zbog velikog napretka u razvoju procesora, genetsko programiranje se koristi za sve širi spektar problema poput sortiranja, pretraživanja, elektroničkog dizajna i mnogih drugih. 
+
+Genetsko programiranje se često uspoređuje sa genetskim algoritmima. Međutim, postoje određene razlike. Kod genetskog programiranja rješenje je prikazano računalnim programom. Rješenje je onaj program koji daje rješenje zadanog problema u u najkraćem roku. Kod genetskih algoritama postoje različite reprezentacije rješenja ovisno o problemu koji rješavamo. Rješenje se može predstavljati brojkom, nizom bitova ili brojeva i drugima. Još jedna od većih razlika je duljina rješenja. Kod genetskog algoritma duljina rješenja se kroz evaluaciju ne mjenja, dok kod GP-a stabla često mjenjaju dubinu, veličinu i širinu. To često dovodi do problema prekomjernog rasta zbog čega je potrebno implementirati određena ograničenja duljine rješenja, poput dubine stabla ili broja čvorova.
+
+U sljedećim potpoglavljima ćemo se detaljnije upoznati o načinu na koji genetsko programiranje radi.
+
+\section{Stvaranje početne populacije}
+Algoritam započinje nultom generacijom koja se stvara na temelju slučajnog odabira. Ova generacija nema nikakva optimizacijska svojstva, služi samo kao temelj za stvaranje i razvoj boljih jedinki u sljedećim generacijama. Postoje različiti načini kojima gradimo početnu generaciju, no najčešće korištene metode su \textit{Full} i \textit{Grow}.
+
+\subsection{Full metoda}
+Stvaranje stabala kod \textit{Full} metode započinje slučajno izabranom funkcijom koja predstavlja korijen. Potom rekurzivno stvaramo sljedeće razine stabla dok ne dođemo do maksimalno predviđene dubine. Tijekom ovog procesa čvorove biramo samo iz skupa operatora. Na posljednjoj razini odabiremo čvorove isključivo iz skupa završnih znakova.
+
+\subsection{Grow metoda}
+Ova metoda je slična prijašnjoj s razlikom da u svakom trenutku stvaranja čvorove možemo birati i iz skupa završnih znakova. Gradnjom stabala na ovaj način nećemo uvijek doći do maksimalne dubine zbog čega su stabla izgrađena ovom metodom dosta raznolikija i manje složena.
+
+\subsection{Ramped half-and-half metoda}
+Najčešća metoda korištena za stvaranje nulte popoulacije je metoda \textit{ramped half-and-half}. Polovica jedinki se stvara \textit{full} metodom, a druga polovica \textit{grow}. Određena je samo maksimalna dubina stabala, a jedinke se stvaraju za svaku dubinu, sve do maksimalne. 
+
+Prednost ove metode je što stvara jedinke s dobrom raspodjelom po veličini i strukturi.
+\section{Procjena dobrote jedinke}
+Procjena dobrote jedinke uvelike ovisi o problemu kojim se bavimo. Predstavljena je \textit{fitnes} funkcijom ili funkcijom dobrote. Ovisno o veličinama koje dobijemo primjenom fitnes funkcije možemo utvrditi kvalitetu pojedinog rješenja. Pravilno implementirana funkcija dobrote je važna jer o njoj u velikoj mjeri ovisi koja će rješenja ostati u razmatranju, a koja ne. Dobrotu neke jedinke možemo definirati kao mjeru kvalitete tog rješenja u zadanom prostoru rješenja. Primjerice, kod traženja maksimuma neke funkcije, dobrotu možemo prikazati kao vrijednost koju ta funkcija ima za pojedinu jedinku. Kod problema stvaranja rasporeda, dobrotu možemo procjeniti kao postotak predavanja koja se ne poklapaju, vremenskom intervalu koji studenti imaju između uzastopnih predavanja i slično. 
+
+Definiranje funkcije dobrote je jedan od ključnih problema genetskog programiranja jer je potrebno da bude što preciznija, a što jednostavnija budući da je njeno evaluiranje potrebno obavljati u svakoj generaciji na cjelokupnom skupu jedinki. 
+
+\section{Genetski operatori}
+
+\subsection{Selekcija}
+Jedan od centralnih mehanizama genetskog programiranja je selekcija. Ona omogućava boljim jedinkama da prenesu svoje "gene" u sljedeće generacije algoritma. Dobrota jedinke se zasniva na fitnes funkciji ili funkciji dobrote koju smo već opisali. Operatori selekcije i njihov utjecaj se mogu okarakterizirati kroz nekoliko parametara:
+
+\begin{itemize}
+\item{vrijeme preuzimanja,}
+\item{selekcijski intezitet,}
+\item{momenti razdiobe dobrote}
+\end{itemize}
+
+Vrijeme preuzimanja je vrijeme potrebno operatoru selekcije da generira populaciju u kojoj se nalazi samo najbolje rješenje. To je vrijeme od prve generacije pa do nastanka generacije koja je popunjena samo jedinkama najboljeg rješenja ako koristimo samo mehanizam selekcije. Ako je mehanizam selekcije pravilan, u svakoj generaciji bi trebali imati bolja rješenja i sve veći broj kopija najboljeg rješenja.
+
+Selekcijski intezitet je povećanje srednje dobrote populacije prije i nakon primjene operatora selekcije, podijeljenog sa standardnom devijacijom populacije:
+
+\[ I = \frac{\bar{f_s} - \bar{f}}{\sigma} \]
+
+$\bar{f} $ predstavlja prosječnu dobrotu rješenja u populaciji roditelja,  $\bar{f_s} $ predstavlja prosječnu dobrotu rješenja u populaciji djece, dok je $\sigma$ standardno odstupanje u populaciji roditelja.
+
+Moment razdiobe dobrote populacije se računa prema izrazu:
+
+\[ \mu_r = \frac1{n}\sum_{i=1}^{n}(f_i - \bar{f})^r \]
+
+gdje je $f_i$ dobrota rješenja, a $\bar{f}$ srednja vrijednost dobrote za čitavu populaciju. 
+
+U nastavku ćemo se upoznati s nekim od često korištenih vrsta selekcije.
+
+\subsubsection{Proporcionalna selekcija}
+
+Proporcionalnu selekciju možemo slikovito prikazati kao kotač ruleta gdje je svakom rješenju u populaciji pridružen isječak čija je površina proporcionalna dobroti rješenja. Tako najbolja jedinka imati najveći isječak kotača i najveću šansu za odabirom, dok će kod onih manje dobrih biti obrnuto.
+
+\subsubsection{Turnirska selekcija}
+
+Kod turnirske selekcije iz populacije izvlačimo slučajni uzorak od \textit{s} rješenja te odabiremo ono rješenje iz tog uzorka koje ima najveću dobrotu. 
+
+Turnirska selekcija koja u populaciji od \textit{n} jedinki izvlači uzorak od njih \textit{s} naziva se \textit{s}-turnirska selekcija.
+
+\subsection{Križanje}
+Križanje je analogno biološkoj spolnoj reprodukciji. Križanjem dolazi do rekombiniranja genetskog materijala dvaju roditelja. Rezultat su dvije jedinke djece koje od svakog roditelja nasljeđuju dio genetskog materijala i koje će vjerojatno imati bolju dobrotu. U slučaju da se to ne dogodi loša rješenja će brzo "odumrijeti" mehanizmima selekcije koji će ih rjeđe birati za prijenos u sljedeće generacije. Ovisno o načinu prikaza jedinke postoje različite vrste križanja koje između ostaloga uključuju uniformno križanje koje se koristi kod jedinki predstavljenih kao niz bitova, aritmetičko, diskretno linearno križanje i drugi.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.6]{images/krizanje}
+\caption{Primjer križanja}
+\end{figure}
+
+\subsection{Mutacija}
+Mutacija omogućava genetsku raznolikost jedinki čime se mogu dobiti bolja ili lošija rješenja. U generaciji se bira udio jedinki koji će sudjelovati u mutaciji ili vjerojatnost odabira mutacije za svaku pojedinu jedinku. Kod jedinki prikazanih stablima mutacija se obavlja tako da se nasumično odabere čvor koji se briše zajedno sa svojim podstablima. Na njegovom mjestu se generira novo podstablo stvoreno slučajnim odabirom. Pri tome je potrebno paziti da ne dođe do prekoračenja postavljenih ograničenja poput dubine stabla ili broja čvorova.
+
+
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.6]{images/mutacija}
+\caption{Mutacija jedinke prestavljene stablom}
+\end{figure}
+
+\section{Problemi genetskog programiranja}
+Kao što smo već napomenuli, kod genetskog programiranja možemo naići i na određene probleme. To je prije svega problem prebrzog rasta jedinki (engl. \textit {bloat}). Ako je jedinka prikazana u obliku stabla, problem se očituje kao nekontrolirani rast veličine stabla, to jest broja čvorova i dubine, bez poboljšanja dobrote. To može dovesti do dugog trajanja evaluacije većih jedinki i nerazumljivosti i nečitljivosti rješenja. Predloženi su različiti mehanizmi rješavanja tog problema koji između ostalog uključuju kažnjavanje prevelikih jedinki, odbacivanje onih jedinki koji prelaze dopuštena ograničenja te njihova zamjena novim ili podrezivanje stabala (engl. \textit{tree pruning}). 
+\section{Primjena genetskog programiranja na problem klasifikacije}
+U ovom potpoglavlju ćemo se detaljnije upoznati sa načinom na koji se genetsko programiranje koristi za rješavanje problema klasifikacije podataka. Klasifikacija je raširen problem s kojim se i nesvjesno suočavamo svaki dan. Na primjer, prepoznavanje lice pojedinaca koje smo prije upoznali, vrsta životinja, biljaka i hrane i drugih objekata iz okoline. Koristi se i u složenim znanstvenim domenama poput medicine gdje može pomoći u dijagnozi pacijenata na osnovu povijesti bolesti drugih pacijenata sa sličnim simptomima. 
+
+S obzirom na raširenost ovog problema važno je razviti računalne mehanizme sposobne rješavanja problema klasifikacije u slučajevima kada je to za ljude presloženo i vremenski zahtjevno. Generalni oblik klasificiranja podrazumjeva prepoznavanje klasa kojima određeni primjerci problema pripadaju na osnovu atributa ili svojstava testnih primjeraka. Na osnovu testnih primjeraka možemo razviti model koji će predviđati klasu kojoj pripadaju novi, još nesvrstani primjerci.
+
+Kroz povijest razvoja klasifikacije koristili su se različiti algoritmi i načini rješavanja tog problema. Genetsko programiranje je relativno novo i brzo razvijajuće područje koje se u široj primjeni našlo tek u zadnjih nekoliko desetljeća.
+
+Model na kojem ćemo se zadržati u ovom radu je reprezentacija stablima odluke koje koristimo za klasifikaciju numeričkim izrazima. U kombinaciji sa aritmetičkim operacijama koristit ćemo se i logičke izraze poput \textit{if-then-else} operacija koje se često koriste u računalnim programima. Ovakav način prikaza rješenja se pokazao relativno uspješnim u praktičnim primjenama poput klasifikacije rukopisa, bolesti, prepoznavanja objekata i slično. 
+
+Primjer stabla i pripadajuće funkcije koja ovisi o ulaznim parametrima X i Y prikazan je na slici 3.3
+
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.6]{images/stablo}
+\caption{Stablo odluke}
+\end{figure}
+
+Klasifikator numeričkih izraza se definira kao bilo koja funkcija koja vraća numeričku vrijednost. Funkcija se sastoji od matematičkih operacija, uključujući aritmetičke operacije i druge poput sinusa, kosinusa ili logaritma. Kao što smo prije napomenuli, funkcije mogu sadržavati i operatore usporedbe kao ako-onda-ili izraz. Klasifikator numeričkih izraza provodi klasifikaciju pomoću varijabli koje su mu predane kao ulaz i na izlazu daje numeričku vrijednost. Ta numerička vrijednost se onda mora interpetirati u jednu od mogućih klasa za zadani problem.   
+
+Važnost će biti na preciznosti modela koji nastaju genetskim programiranjem. Iako postoje drugi faktori o kojima može ovisiti kvaliteta promatranog rješenja poput veličine programa, razumljivosti, vremenskoj izvedbi i slično, njih ćemo svrstati u drugi plan. Na osnovu toga, kvalitetna rješenja će biti ona koja imaju najveći preciznost izvođenja klasifikacije, bez obzira na ostale promatrane uvjete.
+
+Cilj je za zadane primjere proizvesti program koji će što preciznije klasificirati primjere i u velikom postotku predviđati pripadnost primjeraka problema zadanim klasama. 
+
+\chapter{Programsko ostvarenje}
+
+U ovom poglavlju ćemo detaljnije opisati programsko ostvarenje i opisati na koji smo način rješavali problem klasifikacije podataka upotrebom genetskog programiranja. Upoznati ćemo se s radnim okruženjem ECF-a, opisati genetske operatore koje smo koristili i objasniti prikaz dobivenog rješenja.
+
+\section{Radno okruženje ECF}
+
+ECF (engl. \textit{Evolutionary Computation Framework} je radno okruženje za rješavanje problema evolucijskog računanja koje se razvija na Fakultetu elektrotehnike i računarstva u Zagrebu pod vodstvom izv. prof. dr. sc. Domagoja Jakobovića. Napisano je u programskom jeziku C++. 
+
+Za korištenje ECF-a možemo kombinirati i parametrizirati sljedeće komponente:
+
+\begin{itemize}
+\item Genotype
+\item Algorithm
+\item Evolutionary system
+\end{itemize}
+
+\textbf{Genotype} je osnovna komponenta ECF-a. Svaka jedinka u populaciji ima jednog ili više genotipa koje je najjednostavnije definirati u konfiguracijskoj datoteci. Genotip je jedina komponenta koju je potrebno definirati, sve ostale mogu koristiti pretpostavljene vrijednosti. Svaki genotip ima svoju strukturu i genetske operatore križanja i mutacije. U ovom radu ćemo koristiti izvedeni razred \textbf{Tree} koji predstavlja stablasti kromosom genetskog programiranja.
+
+\textbf{Algorithm} predstavlja algoritam koji koristimo. Željeni algoritam i njegovi parametri se mogu definirati u konfiguracijskoj datoteci.
+
+\textbf{Evolutionary system} je kontekst u kojem postoje genotip i algoritam. Kontekst se brine za sve ostalo: veličinu populacije, uvjete završavanja i slično. 
+
+Parametri se zadaju u konfiguracijskoj datoteci XML formata (engl. \textit{Extensible Markup Language}), a dohvaćaju se prilikom inicijaliziranja ECF-a. Primjer jedne od konfiguracijskih datoteka kojih ćemo koristiti u ovom radu dan je na slici 4.1
+
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.6]{images/xml}
+\caption{Primjer konfiguracijske datoteke}
+\end{figure}
+
+\chapter{Primjena i analiza rezultata}
+
+\chapter{Zaključak}
+Zaključak.
+
+\bibliography{literatura}
+\bibliographystyle{fer}
+
+\begin{sazetak}
+Sažetak na hrvatskom jeziku.
+
+\kljucnerijeci{Ključne riječi, odvojene zarezima.}
+\end{sazetak}
+
+% TODO: Navedite naslov na engleskom jeziku.
+\engtitle{Classification of data with genetic programming}
+\begin{abstract}
+Abstract.
+
+\keywords{Keywords.}
+\end{abstract}
+
+\end{document}
