@@ -22,7 +22,9 @@
 \contentsline {section}{\numberline {4.1}Radno okru\IeC {\v z}enje ECF}{13}
 \contentsline {section}{\numberline {4.2}Kori\IeC {\v s}teni klasifikatori}{14}
 \contentsline {section}{\numberline {4.3}Funkcije \IeC {\v c}vorova}{14}
-\contentsline {section}{\numberline {4.4}Funkcije dobrote}{15}
-\contentsline {section}{\numberline {4.5}Parametri i konfiguracijske datoteke}{16}
-\contentsline {chapter}{\numberline {5}Primjena i analiza rezultata}{17}
-\contentsline {chapter}{\numberline {6}Zaklju\IeC {\v c}ak}{18}
+\contentsline {section}{\numberline {4.4}Funkcije dobrote}{16}
+\contentsline {section}{\numberline {4.5}Parametri i konfiguracijske datoteke}{17}
+\contentsline {chapter}{\numberline {5}Primjena i analiza rezultata}{20}
+\contentsline {section}{\numberline {5.1}Klasifikacija vremenskih prilika}{20}
+\contentsline {section}{\numberline {5.2}\textit {Iris flower data set}}{21}
+\contentsline {chapter}{\numberline {6}Zaklju\IeC {\v c}ak}{22}

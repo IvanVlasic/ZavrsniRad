@@ -6,7 +6,7 @@ LDFLAGS = $(WARN) -lecf
 OBJS = RegEvalOp.o \
 			 main.o
 
-DEPS = RegEvalOp.h
+DEPS = RegEvalOp.h TrainingTestValuesOperator.h
 
 BINFILE = reg
 

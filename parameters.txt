@@ -6,9 +6,12 @@
                         <Entry key="functionset">sqrt log iflte max min ifpos sin cos + - * /</Entry>
                         <Entry key="terminalset">X0 X1 X2 X3</Entry>
                 </Tree>
-        </Genotype>
+       </Genotype>
         <Registry>
-                <Entry key="classesNum">2</Entry>
+                <Entry key="classesNum">3</Entry>
+                <Entry key="resultsfile">results.txt</Entry>
+                <Entry key="inputfile">iris.txt</Entry>
+                <Entry key="testfile">iriste.txt</Entry>
         </Registry>
 
 </ECF>

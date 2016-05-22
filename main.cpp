@@ -1,15 +1,20 @@
 #include <ecf/ECF.h>
 #include "RegEvalOp.h"
+#include "RegEvalOpMult.h"
 #include <vector>
 #include <iostream>
 #include "IfPositive.h"
 #include "IfLessThanEq.h"
 #include "Sqrt.h"
 #include "Log.h"
+#include "TrainingTestValuesOperator.h"
 
 int main(int argc, char **argv) {
     StateP state(new State);
     state->setEvalOp(new RegEvalOp);
+    
+    TrainingTestValuesOperatorP op = (TrainingTestValuesOperatorP) new TrainingTestValuesOperator;
+    state->addOperator(op);
 
     TreeP tree(new Tree::Tree);
 
@@ -33,16 +38,5 @@ int main(int argc, char **argv) {
     }
     state->run();
 
-    std::vector <IndividualP> hof = state->getHoF()->getBest();
-    IndividualP ind = hof[0];
-
-    std::cout << "\nPrediction data based on optimal regression tree:" << std::endl;
-
-    RegEvalOp *evalOp = new RegEvalOp;
-
-    state->getRegistry()->modifyEntry("learning", state->getRegistry()->getEntry("test"));
-
-    evalOp->initialize(state);
-    evalOp->evaluate(ind);
 }
 

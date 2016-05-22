@@ -1,6 +1,31 @@
 \documentclass[times, utf8, zavrsni]{fer}
-\usepackage{booktabs, graphicx}
-% \graphicspath { {/home/ivan/images/ } }
+\usepackage{booktabs, graphicx, listings, color, multirow}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{1,1,1}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+
+\lstset{frame=tb,
+  language=C++,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=left,
+  numberstyle=\color[rgb]{0.205, 0.142, 0.73},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3, 
+  literate=%
+  	{ć}{{\'c}}1
+  	{č}{{\v{c}}}1
+  	{š}{{\v{s}}}1
+}
 
 \begin{document}
 
@@ -24,9 +49,9 @@
 \tableofcontents
 
 \chapter{Uvod}
-Klasifikacija je problem razvrstavanja podataka u kategorije na osnovu skupine podataka za učenje čija je podjela već poznata. Kao primjer, koji se u praksi često koristi, možemo navesti prepoznavanje spada li novi email pod neželjeni sadržaj ili ne. Razvojem računarske znanosti, a pogotovo strojnog učenja, došlo je do pojave različitih metoda rješavanja tog problema. Neke su bile više uspješne od drugih. Ovaj rad će pokušati pojasniti rješavanje problema klasifikacije podataka upotrebom genetskog programiranja koje se pokazalo kao dosta precizna metoda, iako može dovesti do problema prevelike složenosti kod velike skupine podataka.
+Klasifikacija je problem razvrstavanja podataka u kategorije na osnovu skupine podataka za učenje čija je podjela već poznata. Kao primjer, koji se u praksi često koristi, možemo navesti prepoznavanje spada li novi email pod neželjeni sadržaj ili ne. Razvojem računarske znanosti, a pogotovo strojnog učenja, došlo je do pojave različitih metoda rješavanja tog problema. Neke su bile više uspješne od drugih. Ovaj rad će pokušati pojasniti rješavanje problema klasifikacije podataka upotrebom genetskog programiranja koje se pokazalo kao dosta precizna metoda iako može dovesti do problema prevelike složenosti kod velike skupine podataka.
 
-U početku ćemo se upoznati sa problemom klasifikacije, njegovim najčešćim primjenama i prihvaćenim metodama rješavanja te osnovnim karakteristikama genetskog programiranja koje ga čine pogodnim za rješavanje ovog problema. Posebnu pažnju ćemo posvetiti algoritmima klasifikacije u obliku regresijskog modela i logičkih pravila. Pojasniti ćemo programski sustav implementiran uz ovaj rad, modele i operatore koje smo koristili kao i detaljne upute za korištenje. Analizirati će mo rezultate dobivene primjenom navedenog sustava na testne primjere te donijeti zaključke o njegovoj optimiziranosti i kvaliteti dobivenih rješenja.
+U početku ćemo se upoznati sa problemom klasifikacije, njegovim najčešćim primjenama i prihvaćenim metodama rješavanja te osnovnim karakteristikama genetskog programiranja koje ga čine pogodnim za rješavanje ovog problema. Posebnu pažnju ćemo posvetiti algoritmima klasifikacije u obliku regresijskog modela i logičkih pravila. Pojasniti ćemo programski sustav implementiran uz ovaj rad, modele i operatore koje smo koristili kao i detaljne upute za korištenje. Analizirati ćemo rezultate dobivene primjenom navedenog sustava na testne primjere te donijeti zaključke o njegovoj optimiziranosti i kvaliteti dobivenih rješenja.
 
 \chapter{Strojno učenje i problem klasifikacije}
 U ovom poglavlju ćemo dati kratki pregled strojnog učenja i upoznati se sa njegovim vrstama. Objasniti ćemo problem klasifikacije podataka i proučiti njegove najčešće primjene. Na kraju ćemo opisati neke od najznačajnijih algoritama koji se u današnje vrijeme koriste za rješavanje tog problema kao i njihovu uspješnost.
@@ -34,11 +59,11 @@ U ovom poglavlju ćemo dati kratki pregled strojnog učenja i upoznati se sa nje
 \section{Strojno učenje}
 Strojno učenje je grana računarske znanosti koja se razvila iz prepoznavanja uzoraka i teorije učenja u umjetnoj inteligenciji. Podrazumijeva programiranje računala na način da optimiziraju neki kriterij uspješnosti temeljem podatkovnih primjera ili prethodnog iskustva. Strojno učenje je veliki razvoj doživjelo osamdesetih godina prošlog stoljeća kad se počelo udaljavati od umjetne inteligencije i razvijati kao zasebna grana računarske znanosti.
 
-Strojno učenje možemo podijeliti na nadzirano, nenadzirano i podržano učenje. Nadzirano učenje se koristi ulaznim skupom podataka kako bi učilo i izgradilo model predviđanja. Podaci za učenje se sastoje od primjera koji imaju vektor ulaznih podataka i predviđen izlaz. Algoritmima nadziranog učenja se ti podaci analiziraju i stvara funkciju koja se može koristiti za mapiranje novih primjera. Ovim postupcima mogu se rješavati dvije vrste problema: klasifikacija i regresija. Kod klasifikacije primjeru pridružujemo klasu kojoj taj primjer pripada, dok kod regresije primjeru pridružujemo neku kontinuiranu vrijednost.
+Strojno učenje možemo podijeliti na nadzirano, nenadzirano i podržano učenje. Nadzirano učenje se koristi ulaznim skupom podataka kako bi učilo i izgradilo model predviđanja. Podaci za učenje se sastoje od primjera koji imaju vektor ulaznih podataka i predviđen izlaz. Algoritmima nadziranog učenja se ti podaci analiziraju i stvara se funkcija koja se može koristiti za mapiranje novih primjera. Ovim postupcima mogu se rješavati dvije vrste problema: klasifikacija i regresija. Kod klasifikacije primjeru pridružujemo klasu kojoj taj primjer pripada, dok kod regresije primjeru pridružujemo neku kontinuiranu vrijednost.
 
-Za razliku od nadziranog učenja, nenadzirano učenje ne koristi podatke za učenje. Kod ove vrste učenja dani su nam podaci bez ciljne vrijednosti i naš je zadatak pronaći pravilnosti među njima. Tipično se koristi kod eksplorativne dubinske analize podataka, u biologiji za grupiranje organizama prema njihovim značajkama, grupiranju sličnih dokumenata, grupiranju DNA-mikropolja i slično. Koriste se grupiranje, procjena gustoće i smanjenjenje dimenzionalnosti.
+Za razliku od nadziranog učenja, nenadzirano učenje ne koristi podatke za učenje. Kod ove vrste učenja dani su nam podaci bez ciljne vrijednosti i naš je zadatak pronaći pravilnosti među njima. Tipično se koristi kod eksplorativne dubinske analize podataka, u biologiji za grupiranje organizama prema njihovim značajkama, grupiranju sličnih dokumenata, grupiranju DNA-mikropolja i slično. Koriste se grupiranje, procjena gustoće i smanjenje dimenzionalnosti.
 
-Podržano učenje je učenje strategije na temelju serije izlaza. Tipično se koristi kod igara, robotike i upravljanja te višeagentnih sustava. Pristup temelji na agentima koji ovisno o kvaliteti postignutih rezultata postižu nagrade. Cilj svakog agenta je maksimizirati dobivenu nagradu i time temelji uspjeh svojih strategija. 
+Podržano učenje je učenje strategije na temelju serije izlaza. Tipično se koristi kod igara, robotike i upravljanja te višeagentnim sustavima. Pristup temelji na agentima koji ovisno o kvaliteti postignutih rezultata postižu nagrade. Cilj svakog agenta je maksimizirati dobivenu nagradu i time temelji uspjeh svojih strategija. 
 
 \section{Klasifikacija podataka}
 
@@ -63,12 +88,12 @@ Skup primjera za učenje sastoji se od parova primjera i pripadnih oznaka. Može
 \end{center} 
 
 
-gdje je N ukupan broj primjera, a \textit{i} indeks primjera. Skup ulaznih oznaka označavamo s $(x^{(i)})_{i=1}^N$, a izlaznih s \textit{y}. Zadaća klasifikacijskog algoritma jest naučiti hipotezu koja određuje pripada li neki primjer određenoj klasi ili ne. Da bi u tome uspio, potrebno je izgraditi klasifikator. Ako klasifikator dobro generalizira, tada će ispravno klasificirati još neviđene podatke. Važno je napomenuti da uspjeh klasifikatora u velikoj mjeri ovisi o o svojstvima podataka koje je potrebno klasificirati. Ne postoji klasifikator koji radi najbolje za sve probleme (pojava koja je poznatija pod imenom \textit{no free lunch theorem}). Određivanje primjerenog klasifikatora za problem je dosta složen i težak problem koji nije uvijek moguće riješiti. Učenje hipoteze je loše definiran problem (engl. \text1it{ill-based problem}). Primjeri za učenje nisu sami po sebi dovoljni da bi se jednoznačno definirala hipoteza. Svojstvo hipoteze da odredi klase još neviđenih razreda naziva se generalizacija. 
+gdje je N ukupan broj primjera, a \textit{i} indeks primjera. Skup ulaznih oznaka označavamo s $(x^{(i)})_{i=1}^N$, a izlaznih s \textit{y}. Zadaća klasifikacijskog algoritma jest naučiti hipotezu koja određuje pripada li neki primjer određenoj klasi ili ne. Da bi u tome uspio, potrebno je izgraditi klasifikator. Ako klasifikator dobro generalizira ispravno će klasificirati još neviđene podatke. Važno je napomenuti da uspjeh klasifikatora u velikoj mjeri ovisi o o svojstvima podataka koje je potrebno klasificirati. Ne postoji klasifikator koji radi najbolje za sve probleme (pojava koja je poznatija pod imenom \textit{no free lunch theorem}). Određivanje primjerenog klasifikatora za problem je dosta složen i težak problem koji nije uvijek moguće riješiti. Učenje hipoteze je loše definiran problem (engl. \text1it{ill-based problem}). Primjeri za učenje nisu sami po sebi dovoljni da bi se hipoteza jednoznačno definirala. Svojstvo hipoteze da odredi klase još neviđenih razreda naziva se generalizacija. 
 
-Jedan od glavnih problema do kojih može doći je problem šuma. Šum je neželjena anomalija u podacima koja je uzrokovana različitim uzrocima poput: nepreciznosti pri mjerenju značajki, pogreški u označavanju, nejasnih granica klasa i postojanje skrivenih značajki. U načelu, šum nije moguće razdvojiti od pravih podataka. Danas klasifikacija ima mnoge primjene. Koristi se u računalnom vidu, prepoznavanju govora, klasifikaciji dokumenata i slično. Svi ovi i mnogi drugi problemi se rješavaju različitim algoritmima od kojih svi imaju svoje pozitivne i negativne strane, kao i različite uspješnosti. U sljedećem poglavlju ćemo razmotriti neke od najčešćih algoritama koji se koriste u praksi kao i njihove značajke. 
+Jedan od glavnih problema do kojih može doći je problem šuma. Šum je neželjena anomalija u podacima koja je uzrokovana različitim uzrocima poput: nepreciznosti pri mjerenju značajki, pogreški u označavanju, nejasnih granica klasa i postojanju skrivenih značajki. U načelu, šum nije moguće razdvojiti od pravih podataka. Danas klasifikacija ima mnoge primjene. Koristi se u računalnom vidu, prepoznavanju govora, klasifikaciji dokumenata i slično. Svi ovi i mnogi drugi problemi se rješavaju različitim algoritmima od kojih svi imaju svoje pozitivne i negativne strane, kao i različite uspješnosti. U sljedećem poglavlju ćemo razmotriti neke od najčešćih algoritama koji se koriste u praksi kao i njihove značajke. 
 
 \section{Najznačajniji algoritmi za rješavanje problema klasifikacije}
-Algoritama za rješavanje problema klasifikacije postoji mnogi. Razlikuju se po svojoj jednostavnosti primjene, točnosti i razumljivosti. Uspješnost algoritama u velikoj mjeri ovisi o problemu kojeg rješavamo. Ponekad nam je važnija brzina kvalifiaktora od njegove točnosti, a u drugi slučajevima je važnije da klasifikator ima veliku točnost nego brzinu ili jednostavnost. Među algoritme linearne klasifikacije spadaju Fisherova linearna diskriminanta, Naivni Bayes klasifikatori koji su se u početku pokazali dosta učinkovitima za rješavanje složenih problema, no detaljna analiza 2006. godine je pokazala da postoje drugi algoritmi koji su dosta bolji, poput algoritma \textit{random forest}. U tu skupinu još spadaju logistička regresija i \textit{perceptron}. Jedan od češće korištenih algoritama je i metoda potpornih vektoar (engl. \textit{Support Vector Machine}) koji se bazira na učenju razdvajanjem funkcija i estimacije funkcije u regresiji. U velikoj upotrebi su i neuronske mreže koje su u širom smislu replika ljudskog mozga kojom se nastoji simulirati postupak učenja. To je skup međusobno povezanih jednostavnih procesnih elemenata koji se nazivaju čvorovi ili neuroni, i čija se funkcionalnost zasniva na biološkom neuronu. Neuronske mreže su vrlo dobre u procjeni nelinearnih odnosa uzoraka, mogu raditi s nejasnim ili manjkavim podacima, mogu raditi s velikim brojem varijabli i prilagođavati se okolini što ih čini pogodnim za probleme klasifikacije. Još neki od poznatijih metoda i algoritama su kvadratna metoda koja je dizajnirana za situacije kada karakteristike svake grupe imaju normalnu distribuciju te metoda kernel procjene.
+Algoritama za rješavanje problema klasifikacije postoji mnogo. Razlikuju se po svojoj jednostavnosti primjene, točnosti i razumljivosti. Uspješnost algoritama u velikoj mjeri ovisi o problemu kojeg rješavamo. Ponekad nam je važnija brzina klasifikatora od njegove točnosti, a u drugim slučajevima je važnije da klasifikator ima veliku točnost nego brzinu ili jednostavnost. Među algoritme linearne klasifikacije spadaju Fisherova linearna diskriminanta i Naivni Bayes klasifikatori koji su se u početku pokazali dosta učinkovitima za rješavanje složenih problema, no detaljna analiza 2006. godine je pokazala da postoje drugi algoritmi koji su dosta bolji, poput algoritma \textit{random forest}. U tu skupinu još spadaju logistička regresija i \textit{perceptron}. Jedan od češće korištenih algoritama je i metoda potpornih vektora (engl. \textit{Support Vector Machine}) koji se bazira na učenju razdvajanjem funkcija i estimacije funkcije u regresiji. U velikoj upotrebi su i neuronske mreže koje su u širom smislu replika ljudskog mozga kojom se nastoji simulirati postupak učenja. To je skup međusobno povezanih jednostavnih procesnih elemenata koji se nazivaju čvorovi ili neuroni, i čija se funkcionalnost zasniva na biološkom neuronu. Neuronske mreže su vrlo dobre u procjeni nelinearnih odnosa uzoraka, mogu raditi s nejasnim ili manjkavim podacima, mogu raditi s velikim brojem varijabli i prilagođavati se okolini što ih čini pogodnim za probleme klasifikacije. Još neki od poznatijih metoda i algoritama su kvadratna metoda koja je dizajnirana za situacije kada karakteristike svake grupe imaju normalnu distribuciju te metoda kernel procjene.
 
 Za probleme klasifikacije također se može koristiti i genetsko programiranje koje se zasniva na razvoju stabala odluke. Prednost genetskog programiranja leži u činjenici da može otkriti manje vidljive veze između podataka. Važna primjena je postignuta u otkrivanju gena. Više o tome će biti objašnjeno u sljedećih nekoliko poglavlja.
 
@@ -129,7 +154,7 @@ U nastavku ćemo se upoznati s nekim od često korištenih vrsta selekcije.
 
 \subsubsection{Proporcionalna selekcija}
 
-Proporcionalnu selekciju možemo slikovito prikazati kao kotač ruleta gdje je svakom rješenju u populaciji pridružen isječak čija je površina proporcionalna dobroti rješenja. Tako najbolja jedinka imati najveći isječak kotača i najveću šansu za odabirom, dok će kod onih manje dobrih biti obrnuto.
+Proporcionalnu selekciju možemo slikovito prikazati kao kotač ruleta gdje je svakom rješenju u populaciji pridružen isječak čija je površina proporcionalna dobroti rješenja. Tako najbolja jedinka ima najveći isječak kotača i najveću šansu za odabirom, dok će kod onih manje dobrih biti obrnuto.
 
 \subsubsection{Turnirska selekcija}
 
@@ -157,7 +182,7 @@ Mutacija omogućava genetsku raznolikost jedinki čime se mogu dobiti bolja ili 
 \end{figure}
 
 \section{Problemi genetskog programiranja}
-Kao što smo već napomenuli, kod genetskog programiranja možemo naići i na određene probleme. To je prije svega problem prebrzog rasta jedinki (engl. \textit {bloat}). Ako je jedinka prikazana u obliku stabla, problem se očituje kao nekontrolirani rast veličine stabla, to jest broja čvorova i dubine, bez poboljšanja dobrote. To može dovesti do dugog trajanja evaluacije većih jedinki i nerazumljivosti i nečitljivosti rješenja. Predloženi su različiti mehanizmi rješavanja tog problema koji između ostalog uključuju kažnjavanje prevelikih jedinki, odbacivanje onih jedinki koji prelaze dopuštena ograničenja te njihova zamjena novim ili podrezivanje stabala (engl. \textit{tree pruning}). 
+Kao što smo već napomenuli, kod genetskog programiranja možemo naići i na određene probleme. To je prije svega problem prebrzog rasta jedinki (engl. \textit {bloat}). Ako je jedinka prikazana u obliku stabla, problem se očituje kao nekontrolirani rast veličine stabla, to jest broja čvorova i dubine bez poboljšanja dobrote. To može dovesti do dugog trajanja evaluacije većih jedinki i nerazumljivosti i nečitljivosti rješenja. Predloženi su različiti mehanizmi rješavanja tog problema koji između ostalog uključuju kažnjavanje prevelikih jedinki, odbacivanje onih jedinki koji prelaze dopuštena ograničenja te njihova zamjena novim ili podrezivanje stabala (engl. \textit{tree pruning}). 
 \section{Primjena genetskog programiranja na problem klasifikacije}
 U ovom potpoglavlju ćemo se detaljnije upoznati sa načinom na koji se genetsko programiranje koristi za rješavanje problema klasifikacije podataka. Klasifikacija je raširen problem s kojim se i nesvjesno suočavamo svaki dan. Na primjer, prepoznavanje lice pojedinaca koje smo prije upoznali, vrsta životinja, biljaka i hrane i drugih objekata iz okoline. Koristi se i u složenim znanstvenim domenama poput medicine gdje može pomoći u dijagnozi pacijenata na osnovu povijesti bolesti drugih pacijenata sa sličnim simptomima. 
 
@@ -187,7 +212,7 @@ U ovom poglavlju ćemo detaljnije opisati programsko ostvarenje i opisati na koj
 
 \section{Radno okruženje ECF}
 
-ECF (engl. \textit{Evolutionary Computation Framework} je radno okruženje za rješavanje problema evolucijskog računanja koje se razvija na Fakultetu elektrotehnike i računarstva u Zagrebu pod vodstvom izv. prof. dr. sc. Domagoja Jakobovića. Napisano je u programskom jeziku C++. 
+ECF \engl{Evolutionary Computation Framework} je radno okruženje za rješavanje problema evolucijskog računanja koje se razvija na Fakultetu elektrotehnike i računarstva u Zagrebu pod vodstvom izv. prof. dr. sc. Domagoja Jakobovića. Napisano je u programskom jeziku C++. 
 
 Za korištenje ECF-a možemo kombinirati i parametrizirati sljedeće komponente:
 
@@ -203,16 +228,15 @@ Za korištenje ECF-a možemo kombinirati i parametrizirati sljedeće komponente:
 
 \textbf{Evolutionary system} je kontekst u kojem postoje genotip i algoritam. Kontekst se brine za sve ostalo: veličinu populacije, uvjete završavanja i slično. 
 
-Parametri se zadaju u konfiguracijskoj datoteci XML formata (engl. \textit{Extensible Markup Language}), a dohvaćaju se prilikom inicijaliziranja ECF-a. Primjer jedne od konfiguracijskih datoteka kojih ćemo koristiti u ovom radu dan je na slici 4.1
+Parametri se zadaju u konfiguracijskoj datoteci XML formata (engl. \textit{Extensible Markup Language}), a dohvaćaju se prilikom inicijaliziranja ECF-a. Primjer konfiguracijske datoteke dan je na slici 4.1
 
 \begin{figure}[htb]
 \centering
-\includegraphics[scale=0.6]{images/xml}
+\includegraphics[scale=0.6]{images/xml2}
 \caption{Primjer konfiguracijske datoteke}
 \end{figure}
 
 \section{Korišteni klasifikatori}
-
 
 
 
@@ -224,9 +248,14 @@ U ovom radu ćemo implementirati dva različita klasifikatora genetskog programi
 \end{itemize}
 
 
+Regresijski GP s jednim stablom uspoređuje numeričke vrijednosti dobivene evaluacijom stabla s intervalima definiranim za svaku klasu. Razred kojem primjer pripada je onaj u čijem se intervalu nalazi dobivena numerička vrijednost. Funkcijom dobrote potom određujemo uspješnost predviđanja klasa svake jedinke.
+
+Kod regresijskog GP-a uz glasanje svaka klasa ima definirano svoje stablo.  Tijekom evaluacije računamo izlaznu numeričku vrijednost za svako od stabala. Odlučujuće je ono stablo koje daje najmanju apsolutnu vrijednost. 
+
+
 \section{Funkcije čvorova}
 
-Regresijska stabla se sastoje od od skupa funkcijskih znakova i skupa završnih znakova. U skup završnih znakova spadaju atributi klasifikacijskog problema. Ako je ukupan broj atributa jednak n varijable tada imaju oznake od $x_0$ do $x_{n-1}$. Prilikom evaluacije za vrijednosti varijabli iz skupa završnih znakova uzimaju se odgovarajuće vrijednosti iz skupa podataka definiranih za svaki primjer klasifikacije. U skup funkcijskih znakova spadaju:
+Stabla odluke se sastoje od skupa funkcijskih znakova i skupa završnih znakova. U skup završnih znakova spadaju atributi klasifikacijskog problema. Ako je ukupan broj atributa jednak $n$ varijable tada imaju oznake od $x_0$ do $x_{n-1}$. Prilikom evaluacije za vrijednosti varijabli iz skupa završnih znakova uzimaju se odgovarajuće vrijednosti iz skupa podataka definiranih za svaki primjer klasifikacije. U skup funkcijskih znakova spadaju:
 
 \begin{itemize}
 \item Aritmetički operatori
@@ -241,7 +270,7 @@ U nastavku ćemo se pobliže upoznati s njima.
 
 U aritmetičke operatore koje koristimo spadaju zbrajanje (+), oduzimanje (-), množenje (*) i dijeljenje (/). Pored njih, koristit ćemo i funkcije sinusa i kosinusa. 
 
-Ostale korištene funkcije je potrebno implementirati unutar radnog okruženja ECF-a. Pri tome im je potrebno definirati pridružena svojstva \textbf{nArguments\_} koje označava broj djece koje će čvor s navedenom funkcijom imati te \textbf{name\_} koje označava ime navedene funkcije. U svakoj definiranoj funkciji je potrebno implementirati metodu \textbf{execute} u kojoj vrijednosti čvorova djece dohvaćamo pomoću metode \textbf{getNextArgument}. U svakoj od funkciju čvoru roditelja se šalje vrijednost samo jednog od djece dok se sve ostale čvorove preskače i zanemaruje.
+Ostale korištene funkcije je potrebno implementirati unutar radnog okruženja ECF-a. Pri tome im je potrebno definirati pridružena svojstva \textbf{nArguments\_} koje označava broj djece koje će čvor s navedenom funkcijom imati te \textbf{name\_} koje označava ime navedene funkcije. U svakoj definiranoj funkciji je potrebno implementirati metodu \textbf{execute} u kojoj vrijednosti čvorova djece dohvaćamo pomoću metode \textbf{getNextArgument}. U svaku od funkcija čvorova roditelja se šalje vrijednost samo jednog djeteta dok se sve ostale čvorove preskače i zanemaruje.
 
 
 \textit{Max} i \textit{Min} funkcije definiraju čvorove koji imaju dvoje djece. \textit{Max} funkcija vraća vrijednost onog djeteta koje ima veću vrijednost, dok \textit{Min} funkcija vraća manju od vrijednosti svoje djece.
@@ -251,7 +280,7 @@ Funkcija \textit{Sqrt} definira čvor koji ima jedno dijete te vraća korijen ap
 
 Kod funkcije \textit{Log} je potrebno pripaziti na vrijednost koju joj predajemo. Budući da je logaritamska funkcija definirana samo za pozitivne vrijednosti veće od nule, u slučaju da je vrijednost djeteta manja ili jednaka nuli funkcija vraća logaritam od jedan, to jest nula.
 
-\textit{IfPositive} definira čvor koji ima troje djece. U slučaju da je vrijednost prvog djeteta veća od 0 vraća vrijednost drugog dijeteta, inače vraća vrijednost trećeg.
+\textit{IfPositive} definira čvor koji ima troje djece. U slučaju da je vrijednost prvog djeteta veća od 0 vraća vrijednost drugog djeteta, a inače vraća vrijednost trećeg.
 
 
 \textit{IfLessThanEq} definira čvor koji ima četvero djece. U slučaju da je vrijednost prvog djeteta manja ili jednaka vrijednosti drugog vraća vrijednost trećeg djeteta, a u suprotnom slučaju vrijednost četvrtog djeteta.
@@ -260,13 +289,59 @@ Uvođenje logičkih izraza pored onih aritmetičkih je važno jer omogućava ve�
 
 \section{Funkcije dobrote}
 
-Implementirane su dvije funkcije dobrote, a s kojom radimo ovisi o obliku klasifikatora. 
+Funkcija dobrote koju ćemo koristiti u treniranju klasifikatora je \textit{F1 score}. Nastala je iz matrice (textit{confusion matrix} koja omogućava vizualizaciju uspješnosti algoritma, obično nadziranog učenja kod problema umjetne inteligencije među koje spada i problem klasifikacije.
 
-Za regresijski GP s jednim stablom koristimo funkciju dobrote koja uspoređuje dobiveni razred s onim definiranim u parametarskoj datoteci. Cilj je minimizirati funkciju tako da će u slučaju pogrešnog predviđanja razreda za promatrani primjer funkcija vratiti pozitivnu konstantnu vrijednost, a u slučaju dobrog predviđanja vrijednost nula.
+Sastoji se od dvije dimenzije ("stvarno" i "predviđeno") i identičnog skupa klasa u obe dimenzije. 
 
-Za regresijski GP uz glasanje gdje imamo posebno stablo za svaku klasu koristimo funkciju dobrote koja računa apsolutne vrijednosti rezultata dobivenih za svako stablo. Ako ono stablo za koje smo dobili minimalnu apsolutnu vrijednost pripada klasi za koju je primjer i definiran smatramo da je klasifikacija uspjela. I u ovoj funkciji je cilj minimizacija.
+Za primjer možemo uzeti klasifikator koji razvrstava pse, mačke i zečeve u njihove pripadajuće klase. Ako uzmemo skup od 27 životinja - 8 mačaka, 6 pasa i 13 zečeva, rezultati nakon klasifikacije bi mogli izgledati ovako:
 
-Opisane funkcije dobrote poprimaju realne vrijednosti u intervalu $[0, +\infty ]$, a manja vrijednost dobrote odgovara boljoj jedinki.
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+& & \multicolumn{3}{|c|}{Predviđeno} \\
+\hline
+& & Mačka & Pas & Zec \\
+\hline
+\multirow{3}{4em}{Stvarno} & Mačka & 5 & 3 & 0 \\
+
+& Pas & 2 & 3 & 1 \\
+
+& Zec & 0 & 2 & 11 \\
+\hline
+
+\end{tabular}
+\end{center}
+
+Od osam mačaka, klasifikator je za tri predvidio da su psi, a od šest pasa za jednog je predvidio da je zec, a za dva da su mačke. Svi pogotci su prikazani dijagonalom pa je lako vidjeti sve pogreške.
+
+Matrica iz koje ćemo dobiti funkciju dobrote ima dva retka i dva stupca sa sljedećim mogućim vrijednostima:
+
+\begin{itemize}
+\item \textit{false positive (FP)} - Svrstavanje pogrešnog primjerka u klasu
+\item \textit{false negative (FN)} - Primjerci klase koji su svrstani u neku drugu klasu
+\item \textit{true positive  (TP)} - Pogodak
+\item \textit{true negative  (TN)} - Točno neprihvaćanje primjerka u klasu
+
+\end{itemize}
+
+Za navedeni primjer i klasu Mačka, dobili bi sljedeću matricu.
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+5 TP (točno svrstane mačke) & 3 FN (mačke svrstane u pse) \\
+\hline
+2 FP (psi svrstani u mačke) & 17 TN (sve ne-mačke svrstane u druge klase) \\
+\hline
+\end{tabular}
+\end{center}
+
+Naša funkcija dobrote će tada imati oblik:
+
+\[ F1 = \frac{2 * TP}{2 * TP + FP + FN} \]
+
+Moguće vrijednosti su iz intervala $[0, 1]$ gdje veći broj predstavlja veću dobrotu rješenja.
+
 
 
 \section{Parametri i konfiguracijske datoteke}
@@ -281,26 +356,146 @@ U slučaju ne navođenja nekog od  parametara, uvode se sljedeće pretpostavljen
 \item Prekid: 50 generacija bez napretka najbolje jedinke
 \end{itemize}
 
-Parametri genotipa koji će nama biti od značaja su \textit{functionset} pomoću kojeg definiramo skup funkcijskih znakova te \textit{terminalset} koji predstavlja skup završnih znakova. Skup završnih znakova ćemo u svim slučajevima definirati oznakama od $x_0$ do $x_{n-1}$ gdje n predstavlja broj atributa problema.
+Parametri genotipa koji će nama biti od značaja su \textit{functionset} pomoću kojeg definiramo skup funkcijskih znakova te \textit{terminalset} koji predstavlja skup završnih znakova. Skup završnih znakova ćemo u svim slučajevima definirati oznakama od $x_0$ do $x_{n-1}$ gdje $n$ predstavlja broj atributa problema.
 
-Pored navedenih možemo definirati i parametar \textit{classesNum} koji predstavlja broj klasa koji koristimo u klasificiranju. U slučaju ne navođenja navedenog parametra koristi se pretpostavljena vrijedost dva.
+Pored navedenih možemo definirati i parametar \textit{classesNum} koji predstavlja broj klasa koji koristimo u klasificiranju. U slučaju ne navođenja navedenog parametra koristi se pretpostavljena vrijednost dva.
 
-Kod definiranja intervala klasa koristimo datoteku \textit{classes.txt} pomoću koje definiramo sve klase koje koristimo kao i intervale kojima pojedina klasa pripada. U slučaju da datoteka ne postoji, koriste se pretpostavljene klase s oznakama od $0$ do $n-1$ gdje n predstavlja broj klasa definiranih parametrom \textit{classesNum}. Za intervale se koriste potencije broja dva, gdje eksponent intervala odgovara numeričkoj oznaci klase.
+Primjer parametarske datoteke gdje možemo vidjeti navedene atribute nalazi se na slici 4.2.
 
-Primjer strukture datoteke za definiranje razreda nalazi se na slici !!!!!!!
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.6]{images/xml}
+\caption{Primjer konfiguracijske datoteke}
+\end{figure}
+
+Kod definiranja intervala klasa koristimo datoteku definiranu parametrom \textit{classesfile}. U slučaju ne navođenja parametra koristi se pretpostavljeni naziv \textit{classes.txt}. Pomoću ove datoteke definiramo sve klase koje koristimo kao i intervale kojima pojedina klasa pripada. Ako datoteka ne postoji, koriste se pretpostavljene klase s oznakama od $0$ do $n-1$ gdje n predstavlja broj klasa definiranih parametrom \textit{classesNum}. Za intervale se koriste negativna i pozitivna potencija broja dva, gdje eksponent intervala odgovara numeričkoj oznaci klase. U klasi $n-1$ definiramo dva intervala koja pokrivaju sve preostale realne vrijednosti.
+
+Naprimjer, ako smo definirali postojanje tri klase bez datoteke sa konfiguracijom dobit ćemo sljedeće vrijednosti intervala:
+
+\begin{itemize}
+\item Klasa 0: $[-1,  1]$
+\item Klasa 1: $[-2, -1] \cup [1, 2]$
+\item Klasa 2: $(-\infty, -2] \cup [2, +\infty)$
+
+\end{itemize}
+
+Primjer strukture datoteke za definiranje razreda nalazi se na slici 4.3.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.6]{images/klase}
+\caption{Primjer definiranja klasa}
+\end{figure}
+
+Na početku retka definirano ime klase, a intervale odvajamo dvotočkama.
+Beskonačne vrijednosti označavamo ne navođenjem vrijednosti s odgovarajuće strane intervala.
+
+Za primjer naveden na slici definirane su tri klase i intervali:
+
+\begin{itemize}
+\item Klasa a: $[1,4] \cup [6,12]$
+\item Klasa b: $(-\infty, 1] \cup [4.5,6]$
+\item Klasa c: $[4, 4.5] \cup [12, +\infty)$
+\end{itemize}
 
 
+Primjere za učenje u datoteci definiranoj parametrom \textit{inputfile} s pretpostavljenom vrijednosti \textit{learning.txt} u kojoj navodime atribute svakog primjera i razred kojem pripada.
+
+Svaki primjer je napisan u novom retku, a atributi su odvojeni zarezima. Kod primjera sa $n$ atributa imat ćemo $n+1$ zapisa u retku gdje posljednji predstavlja klasu.
+
+Na slici 4.3 prikazana je datoteka za učenje čiji primjeri imaju četiri atributa i dva razreda.
 
 
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.6]{images/learning}
+\caption{Datoteka sa primjerima za učenje}
+\end{figure}
 
 
- 
+Datoteka \textit{test.txt} je pretpostavljane vrijednost parametra \textit{testfile} u kojoj se nalazi primjeri za testiranje ima identičnu strukturu.
 
+Detaljnije objašnjenje o atributima i šta točno znače za navedene datoteke ćemo opisati u sljedećem poglavlju.
+
+Ime datoteke u koju se zapisuju rezultati određeno je parametrom \textit{resultsfile} koji ima pretpostavljenu vrijednost \textit{results.txt}.
+
+U datoteci se za svaku generaciju zapisuje broj generacije i najveće vrijednosti dobrote skupa za učenje i testiranje. Vrijednosti su odvojene zarezima.
 
 
 
 \chapter{Primjena i analiza rezultata}
 
+Implementirane klasifikatore ćemo primjeniti na dva primjera problema klasifikacije. John Koza, koji je prvi predstavio ovaj način rješavanja problema klasifikacije, u svom radu je uzeo jednostavan skup podataka od četiri atributa koji određuju jeli dan pogodan za igranje tenisa ili ne. Klasifikatore ćemo upotrijebiti i na podacima koji se jako često koriste u svrhu testiranja klasifikatora gdje je cilj odrediti pripadnost porodice cvijeta iris.
+
+\section{Klasifikacija vremenskih prilika}
+
+Prvi problem koji ćemo pokušati riješiti je predstavio John Koza. U svom radu je uzeo jednostavan skup podataka od četiri atributa (vrijeme, temperatura, vlažnost i vjetrovitost) gdje svaki od atributa može poprimiti nekoliko različitih vrijednosti. Svaki uzorak se svrstava u jedan od dva moguća razreda (pozitivno ili negativno) koja predstavljaju mogućnost igranja tenisa.
+
+Vrijednosti svakog od atributa ćemo preslikati u cijele brojeve kako je prikazano sljedećom tablicom.
+
+\begin{center}
+\begin{tabular}{ |c|c|c|}
+\hline
+Atribut & Vrijednost & Oznaka \\
+\hline
+Vrijeme & Sunčano & 0 \\
+ & Oblačno & 1 \\
+& Kišovito & 2 \\
+\hline
+Temperatura & Vruće & 0 \\
+ & Umjerena & 1 \\
+& Hladno & 2 \\
+\hline
+Vlažnost & Visoka & 0 \\
+& Niska & 1 \\
+\hline
+Vjetrovitost & Ne & 0 \\
+& Da & 1 \\
+
+\hline
+\end{tabular}
+\end{center}
+
+Uzorke ovog problema smo već pokazali u prethodnom poglavlju kao primjer datoteke sa primjerima za učenje.
+
+\section{\textit{Iris flower data set}}
+
+\textit{Iris flower data set} je vjerojatno najpoznatiji skup podataka koji se koristi kod klasifikacije podataka. Predstavio ga je Ronald Fisher 1936. godine u svom radu \textit{The use of multiple measurements in taxonomic problems}.
+
+Podaci se sastoje od tri klase po 50 primjeraka gdje je svaki primjerak definiran sa četiri atributa. Klase predstavljaju tri porodice cvijeta iris - porodice su \textit{iris setosa, iris versicolor, iris virginica}.
+
+Atributi koji se koriste su:
+\begin{itemize}
+\item dužina lapa
+\item širina lapa
+\item dužina latica
+\item širina latica
+\end{itemize}
+
+Sve vrijednosti su predstavljene u centimetrima.
+
+Nekoliko uzoraka je prikazano sljedećom tablicom.
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Dužina lapa & Širina lapa & Dužina latica & Širina latica & Porodica & Oznaka \\
+\hline
+5.1 & 3.5 & 1.4 & 0.2 & \textit{I. setoosa} & 0 \\
+\hline
+4.9 & 3.0 & 1.4 & 0.2 & \textit{I. setosa} & 0\\
+\hline
+7.0 & 3.2 & 4.7 & 1.4 & \textit{I. versicolor} & 1\\
+\hline
+6.4 & 3.2 & 4.5 & 1.5 & \textit{I. versicolor} & 1\\
+\hline
+6.3 & 3.3 & 6.0 & 2.5 & \textit{I. virginica} & 2\\
+\hline
+5.8 & 2.7 & 5.1 & 1.9 & \textit{I. virginica} & 2\\
+\hline
+\end{tabular}
+\end{center}
+ 
 \chapter{Zaključak}
 Zaključak.
 

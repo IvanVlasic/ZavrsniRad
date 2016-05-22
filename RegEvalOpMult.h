@@ -9,9 +9,12 @@ public:
 
     bool initialize(StateP state);
     void registerParameters(StateP state);
-    double fitnessInc(std::vector<std::pair<std::string, double>> values, uint index);
-
+    void fitnessInc(std::vector<std::pair<std::string, double>> values, uint index);
+    std::vector<std::string> split(const std::string, char);
     static std::pair<std::string, double> getAbs(std::pair<std::string, double> pair);
+    void generateDefaultClasses();
+    void generateParsedClasses(std::ifstream& file);
+    std::vector<std::string> classes;
     std::vector<std::vector<double>> domain;
     std::vector<std::string> codomain;
     std::vector<std::string> predicted;
@@ -19,6 +22,8 @@ public:
     uint nSamples;
     uint variables;
     uint classesNum;
+
+    std::map<std::string, std::vector<uint>> f1Score;
 };
 
 #endif
