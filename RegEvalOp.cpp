@@ -26,15 +26,23 @@ bool RegEvalOp::initialize(StateP state) {
     voidP sptr = state->getRegistry()->getEntry("classesNum");
     classesNum = *((uint *) sptr.get());
 
-    sptr = state->getRegistry()->getEntry("inputfile");
-    std::string filePath = *((std::string *) sptr.get());
-
-/*    std::string outputPath = *((std::string*) state->getRegistry()->getEntry("resultsfile").get());
+    std::string outputPath = *((std::string*) state->getRegistry()->getEntry("resultsfile").get());
     
     std::ofstream outfile;
     outfile.open(outputPath.c_str());
+   
+    if (!outfile.is_open()) {
+        ECF_LOG_ERROR(state, "Error: Can't open output file " + outputPath);
+        return false;
+    }
+    
     outfile << "Gen_No,Training,Test" << std::endl;
-  */  ifstream file;
+    outfile.close();
+
+    sptr = state->getRegistry()->getEntry("inputfile");
+    std::string filePath = *((std::string *) sptr.get());
+
+    ifstream file;
     file.open(filePath.c_str());
 
     if (!file.is_open()) {
@@ -45,12 +53,15 @@ bool RegEvalOp::initialize(StateP state) {
     parseFile(domain, codomain, file);
     file.close();
 
+
+
     sptr = state->getRegistry()->getEntry("testfile");
     filePath = *((std::string *) sptr.get());
     file.open(filePath.c_str());
 
     if (!file.is_open()) {
         ECF_LOG_ERROR(state, "Error: Can't open test file " + filePath);
+        return false; 
     }
 
     parseFile(testDomain, testCodomain, file);
@@ -101,15 +112,12 @@ void RegEvalOp::fitnessInc(double result, uint index, std::vector<std::string> &
                 if (entry.first.compare(codomain.at(index)) == 0) {
                     f1Score[entry.first][0]++;
                 } else {
-                    // FN[codomain.at(index)]+A
                     f1Score[codomain.at(index)][1]++;
-                    // FP[entry.first]++
                     f1Score[entry.first][2]++;
                 }
             }
         }
     }
-    
 }
 
 void RegEvalOp::generateDefaultClasses() {
@@ -214,7 +222,7 @@ void RegEvalOp::parseFile(std::vector<std::vector<double>> &domain, std::vector<
 
 }
 
-double RegEvalOp::fitnessEvaluation(std::vector<std::vector<double>>& domain, std::vector<std::string> &codomain, Tree::Tree* tree) {
+double RegEvalOp::fitnessEvaluation(std::vector<std::vector<double>> &domain, std::vector<std::string> &codomain, Tree::Tree* tree) {
     
     double value = 0;
    
@@ -236,9 +244,12 @@ double RegEvalOp::fitnessEvaluation(std::vector<std::vector<double>>& domain, st
     
     for (auto& entry: f1Score) {
         auto& terms = entry.second;
+        if (terms[0] == 0 && terms[1] == 0 && terms[2] == 0) {
+            continue;
+        }
+        
         value += (double)(2 * terms[0]) / (2 * terms[0] + terms[1] + terms[2]);
     }
-    
 
     value /= classesNum;
 

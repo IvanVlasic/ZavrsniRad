@@ -5,19 +5,6 @@
 #include <fstream>
 #include "RegEvalOpMult.h"
 
-std::ostream &operator<<(std::ostream &os, const RegEvalOpMult &reg) {
-    uint total = 0;
-    
-    for (uint i = 0; i < reg.nSamples; i++) {
-        if (reg.codomain.at(i).compare(reg.predicted.at(i)) == 0) {
-                total += 1;
-        }
-    }
-    os << "Total: " << total << " / " << reg.nSamples << std::endl;
-
-    return os;
-
-}
 
 void RegEvalOpMult::registerParameters(StateP state) {
 
@@ -30,8 +17,7 @@ void RegEvalOpMult::registerParameters(StateP state) {
     state->getRegistry()->registerEntry("resultsfile", (voidP)(new std::string("results.txt")), ECF::STRING);
 
     state->getRegistry()->registerEntry("classesNum", (voidP)(new uint(2)), ECF::UINT);
-        
-};
+}
 
 bool RegEvalOpMult::initialize(StateP state) {
 
@@ -40,6 +26,19 @@ bool RegEvalOpMult::initialize(StateP state) {
     voidP sptr = state->getRegistry()->getEntry("classesNum");
     classesNum = *((uint *) sptr.get());
 
+    std::string outputPath = *((std::string*) state->getRegistry()->getEntry("resultsfile").get());
+    
+    std::ofstream outfile;
+    outfile.open(outputPath.c_str());
+
+    if (!outfile.is_open()) {
+        ECF_LOG_ERROR(state, "Error: Can't open output file " + outputPath);
+        return false;
+    }
+
+    outfile << "Gen_No,Training,Test" << std::endl;
+    outfile.close();
+    
     sptr = state->getRegistry()->getEntry("inputfile");
     std::string filePath = *((std::string *) sptr.get());
 
@@ -51,28 +50,19 @@ bool RegEvalOpMult::initialize(StateP state) {
         return false;
     }
 
-    nSamples = 0;
-    std::string line;
-    std::vector<std::string> attributes;
-    while (std::getline(file, line)) {
+    parseFile(domain, codomain, file);
+    file.close();
 
-        if (line.empty()) {
-            break;
-        }
+    sptr = state->getRegistry()->getEntry("testfile");
+    filePath = *((std::string *) sptr.get());
+    file.open(filePath.c_str());
 
-        attributes = split(line, ',');
-        int length = attributes.size();
+    if (!file.is_open()) {
+        ECF_LOG_ERROR(state, "Error: Can't open test file " + filePath);
+        return false;
+    }
 
-        nSamples++;
-        std::vector<double> v;
-        for (int i = 0; i < length - 1; ++i) {
-            v.push_back(std::stod(attributes.at(i)));
-        }
-        
-        domain.push_back(v);
-        codomain.push_back(attributes.at(length - 1));
-   }
-
+    parseFile(testDomain, testCodomain, file);
     file.close();
 
     sptr = state->getRegistry()->getEntry("classesfile");
@@ -92,9 +82,7 @@ bool RegEvalOpMult::initialize(StateP state) {
         f1Score.insert(std::make_pair(entry, std::vector<uint>(3, 0)));
     }
 
-
     return true;
-
 }
 
 
@@ -102,60 +90,18 @@ FitnessP RegEvalOpMult::evaluate(IndividualP individual) {
 
     FitnessP fitness(new FitnessMax);
     
-    double value = 0;
-
-    //pairs of (className, result of executing tree for current example)
-    std::vector<std::pair<std::string, double>> values;
-
-    for (auto& entry: f1Score) {
-        std::fill(entry.second.begin(), entry.second.end(), 0);
-    }
-
-
-    predicted.clear();
-
-    // evaluate each example
-    for (uint i = 0; i < nSamples; i++) {
-        std::vector<double> v = domain.at(i);
-        values.clear();
-
-        // execute example for every tree
-        for (uint j = 0; j < classesNum; j++) {
-            Tree::Tree *tree = (Tree::Tree *) individual->getGenotype(j).get();
-            
-            for (uint k = 0; k < v.size(); k++) {
-                std::string terminal = "X" + std::to_string(k);
-                tree->setTerminalValue(terminal, &v[k]);
-            }
-
-            double result;
-            tree->execute(&result);
-            values.push_back(std::make_pair(classes.at(j), result));
-
-        }
-
-        fitnessInc(values, i);
-    }
-
-    for (auto& entry: f1Score) {
-        auto& terms = entry.second;
-        value += (double)(2 * terms[0]) / (2 * terms[0] + terms[1] + terms[2]);
-    }
-
-    value /= classesNum;
-
+    double value = fitnessEvaluation(domain, codomain, individual);
     fitness->setValue(value);
-    std::cout << *this;
+
+    value = fitnessEvaluation(testDomain, testCodomain, individual);
+    testValues[individual->index] = value;
 
     return fitness;
 }
 
-void RegEvalOpMult::fitnessInc(std::vector<std::pair<std::string, double>> values, uint index) {
+void RegEvalOpMult::fitnessInc(std::vector<std::pair<std::string, double>> values, uint index, std::vector<std::string> &codomain) {
 
-    // transform result of each tree to it's absolute value
     std::transform(values.begin(), values.end(), values.begin(), &getAbs); 
-            
-    // find minimum tree result
     std::pair<std::string, double> selected = values.at(0);
     
     for (auto &pair : values) {
@@ -164,7 +110,6 @@ void RegEvalOpMult::fitnessInc(std::vector<std::pair<std::string, double>> value
         }
     }
     
-    predicted.push_back(selected.first);
     if (selected.first.compare(codomain.at(index)) == 0) {
         f1Score[selected.first][0]++;
     } else {
@@ -208,3 +153,68 @@ std::vector<std::string> RegEvalOpMult::split(std::string line, char delim) {
 
     return elements;
 }
+
+void RegEvalOpMult::parseFile(std::vector<std::vector<double>> &domain, std::vector<std::string> &codomain, std::ifstream& file) {
+    
+    std::string line;
+    std::vector<std::string> attributes;
+    while (std::getline(file, line)) {
+        
+        if (line.empty()) {
+            break;
+        }
+
+        attributes = split(line, ',');
+        int length = attributes.size();
+
+        std::vector<double> v;
+        for (int i = 0; i < length - 1; ++i) {
+            v.push_back(std::stod(attributes.at(i)));
+        }
+
+        domain.push_back(v);
+        codomain.push_back(attributes.at(length - 1));
+    }
+
+}
+
+double RegEvalOpMult::fitnessEvaluation(std::vector<std::vector<double>> &domain, std::vector<std::string> &codomain, IndividualP individual) {
+
+    double value = 0;
+
+    std::vector<std::pair<std::string, double>> values;
+
+    for (auto& entry: f1Score) {
+        std::fill(entry.second.begin(), entry.second.end(), 0);
+    }
+
+    for (uint i = 0; i < codomain.size(); i++) {
+        std::vector<double> v = domain.at(i);
+        values.clear();
+
+        for (uint j = 0; j < classesNum; j++) {
+            Tree::Tree *tree = (Tree::Tree *) individual->getGenotype(j).get();
+            
+            for (uint k = 0; k < v.size(); k++) {
+                std::string terminal = "X" + std::to_string(k);
+                tree->setTerminalValue(terminal, &v[k]);
+            }
+
+            double result;
+            tree->execute(&result);
+            values.push_back(std::make_pair(classes.at(j), result));
+        }
+
+        fitnessInc(values, i, codomain);
+    }
+
+    for (auto& entry: f1Score) {
+        auto& terms = entry.second;
+        value += (double)(2 * terms[0]) / (2 * terms[0] + terms[1] + terms[2]);
+    }
+
+    value /= classesNum;
+
+    return value;
+}
+

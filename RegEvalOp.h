@@ -25,9 +25,6 @@ public:
     double fitnessEvaluation(std::vector<std::vector<double>>&, std::vector<std::string>&, Tree::Tree*);
     std::vector <std::vector<double>> domain;
     std::vector<std::vector<double>> testDomain;
-    // vector to hold predicted data in each iteration
-    // used for printing out result of current iteration
-    std::vector <std::string> predicted;
     // results of samples
     std::vector <std::string> codomain;
     std::vector<std::string> testCodomain;
