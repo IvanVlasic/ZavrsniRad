@@ -6,6 +6,7 @@
 #include <string>
 #include "RegEvalOp.h"
 
+
 void RegEvalOp::registerParameters(StateP state) {
 
     state->getRegistry()->registerEntry("inputfile", (voidP)(new std::string("learning.txt")), ECF::STRING);
@@ -54,7 +55,6 @@ bool RegEvalOp::initialize(StateP state) {
     file.close();
 
 
-
     sptr = state->getRegistry()->getEntry("testfile");
     filePath = *((std::string *) sptr.get());
     file.open(filePath.c_str());
@@ -94,13 +94,13 @@ FitnessP RegEvalOp::evaluate(IndividualP individual) {
     FitnessP fitness(new FitnessMax);
 
     Tree::Tree *tree = (Tree::Tree *) individual->getGenotype(0).get();
-
+    
     double value = fitnessEvaluation(domain, codomain, tree); 
     fitness->setValue(value);
 
     value = fitnessEvaluation(testDomain, testCodomain, tree);
     testValues[individual->index] = value;
-
+    
     return fitness;
 }
 

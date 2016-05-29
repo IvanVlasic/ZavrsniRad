@@ -22,7 +22,7 @@ class TrainingTestValuesOperator: public Operator {
     }
  
     bool operate(StateP state) {
-        RegEvalOp* evalOp = (RegEvalOp*) state->getEvalOp().get();
+        RegEvalOpMult* evalOp = (RegEvalOpMult*) state->getEvalOp().get();
  
         DemeP deme = state->getPopulation()->getLocalDeme();
  

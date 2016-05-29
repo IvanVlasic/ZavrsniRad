@@ -210,7 +210,10 @@ double RegEvalOpMult::fitnessEvaluation(std::vector<std::vector<double>> &domain
 
     for (auto& entry: f1Score) {
         auto& terms = entry.second;
-        value += (double)(2 * terms[0]) / (2 * terms[0] + terms[1] + terms[2]);
+        if (terms[0] == 0 && terms[1] == 0 && terms[2] == 0) {
+            continue;
+        }
+         value += (double)(2 * terms[0]) / (2 * terms[0] + terms[1] + terms[2]);
     }
 
     value /= classesNum;

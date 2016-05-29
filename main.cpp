@@ -11,7 +11,7 @@
 
 int main(int argc, char **argv) {
     StateP state(new State);
-    state->setEvalOp(new RegEvalOp);
+    state->setEvalOp(new RegEvalOpMult);
     
     TrainingTestValuesOperatorP op = (TrainingTestValuesOperatorP) new TrainingTestValuesOperator;
     state->addOperator(op);

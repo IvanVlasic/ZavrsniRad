@@ -20,7 +20,6 @@ public:
     // classes parsed from parameters' file
     void generateParsedClasses(std::ifstream& file);
     // domain
-
     void parseFile(std::vector<std::vector<double>>&, std::vector<std::string>&, std::ifstream&);
     double fitnessEvaluation(std::vector<std::vector<double>>&, std::vector<std::string>&, Tree::Tree*);
     std::vector <std::vector<double>> domain;
@@ -29,7 +28,6 @@ public:
     std::vector <std::string> codomain;
     std::vector<std::string> testCodomain;
     // number of samples
-    uint nSamples;
     // number of variables for each sample
     uint variables;
     // number od different classes

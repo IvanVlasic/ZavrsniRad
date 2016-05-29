@@ -3,10 +3,10 @@ WARN = -Wall
 CFLAGS = $(WARN) -std=c++11
 LDFLAGS = $(WARN) -lecf
 
-OBJS = RegEvalOp.o \
+OBJS = RegEvalOpMult.o \
 			 main.o
 
-DEPS = RegEvalOp.h TrainingTestValuesOperator.h
+DEPS = RegEvalOpMult.h TrainingTestValuesOperator.h
 
 BINFILE = reg
 

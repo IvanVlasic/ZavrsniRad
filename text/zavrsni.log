@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.5.8)  22 MAY 2016 18:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.5.8)  29 MAY 2016 16:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -523,6 +523,14 @@ Package color Info: Driver file: pdftex.def on input line 142.
 (/usr/share/texmf-dist/tex/latex/multirow/multirow.sty
 \bigstrutjot=\dimen149
 )
+(/usr/share/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count120
+\float@exts=\toks26
+\float@box=\box31
+\@float@everytoks=\toks27
+\@floatcapt=\box32
+)
 (/usr/share/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2015/06/04 1.6 listings language file
 )
@@ -587,17 +595,17 @@ File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 
 (/usr/share/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count120
+\scratchcounter=\count121
 \scratchdimen=\dimen150
-\scratchbox=\box31
-\nofMPsegments=\count121
-\nofMParguments=\count122
-\everyMPshowfont=\toks26
-\MPscratchCnt=\count123
+\scratchbox=\box33
+\nofMPsegments=\count122
+\nofMParguments=\count123
+\everyMPshowfont=\toks28
+\MPscratchCnt=\count124
 \MPscratchDim=\dimen151
-\MPnumerator=\count124
-\makeMPintoPDFobject=\count125
-\everyMPtoPDFconversion=\toks27
+\MPnumerator=\count125
+\makeMPintoPDFobject=\count126
+\everyMPtoPDFconversion=\toks29
 ) (/usr/share/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
 )
@@ -643,9 +651,10 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-\c@lstlisting=\count126
+\c@lstlisting=\count127
 LaTeX Font Info:    Try loading font information for T1+phv on input line 41.
 
 (/usr/share/texmf-dist/tex/latex/psnfss/t1phv.fd
@@ -740,50 +749,107 @@ Package pdftex.def Info: images/xml2.png used on input line 235.
 
 [13
 
-] [14 <./images/xml2.png>] [15] [16]
+]
+Underfull \hbox (badness 10000) in paragraph at lines 257--261
+
+ []
+
+[14 <./images/xml2.png>] [15] [16]
 <images/xml.png, id=89, 725.71124pt x 197.73875pt>
 File: images/xml.png Graphic file (type png)
  <use images/xml.png>
-Package pdftex.def Info: images/xml.png used on input line 367.
+Package pdftex.def Info: images/xml.png used on input line 378.
 (pdftex.def)             Requested size: 435.4301pt x 118.64417pt.
 
-Overfull \hbox (22.86513pt too wide) in paragraph at lines 367--368
+Overfull \hbox (22.86513pt too wide) in paragraph at lines 378--379
  [][] 
  []
 
-[17 <./images/xml.png>] <images/klase.png, id=93, 125.46875pt x 69.25874pt>
+[17] <images/klase.png, id=93, 125.46875pt x 69.25874pt>
 File: images/klase.png Graphic file (type png)
 
 <use images/klase.png>
-Package pdftex.def Info: images/klase.png used on input line 386.
+Package pdftex.def Info: images/klase.png used on input line 397.
 (pdftex.def)             Requested size: 75.28181pt x 41.55556pt.
- <images/learning.png, id=94, 94.3525pt x 222.8325pt>
+ [18 <./images/xml.png> <./images/klase.png>]
+<images/learning.png, id=97, 94.3525pt x 222.8325pt>
 File: images/learning.png Graphic file (type png)
-
-<use images/learning.png>
-Package pdftex.def Info: images/learning.png used on input line 411.
+ <use images/learning.png>
+Package pdftex.def Info: images/learning.png used on input line 422.
 (pdftex.def)             Requested size: 56.61192pt x 133.70053pt.
- [18 <./images/klase.png>] [19 <./images/learning.png>]
+
+<images/rezultati.png, id=98, 190.7125pt x 269.005pt>
+File: images/rezultati.png Graphic file (type png)
+
+<use images/rezultati.png>
+Package pdftex.def Info: images/rezultati.png used on input line 437.
+(pdftex.def)             Requested size: 114.42838pt x 161.40424pt.
+ [19 <./images/learning.png> <./images/rezultati.png>]
 Poglavlje 5.
+LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <17.28> not available
+(Font)              Font shape `T1/ptm/b/it' tried instead on input line 447.
 [20
 
-]
-LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <17.28> not available
-(Font)              Font shape `T1/ptm/b/it' tried instead on input line 461.
- [21]
-Poglavlje 6.
-No file zavrsni.bbl.
-[22
+] <grafovi/iris1.png, id=107, 669.50125pt x 665.48625pt>
+File: grafovi/iris1.png Graphic file (type png)
 
-] [23] (./zavrsni.aux) ) 
+<use grafovi/iris1.png>
+Package pdftex.def Info: grafovi/iris1.png used on input line 493.
+(pdftex.def)             Requested size: 301.27278pt x 299.46603pt.
+ <grafovi/iris2.png, id=108, 662.475pt x 669.50125pt>
+File: grafovi/iris2.png Graphic file (type png)
+
+<use grafovi/iris2.png>
+Package pdftex.def Info: grafovi/iris2.png used on input line 504.
+(pdftex.def)             Requested size: 298.111pt x 301.27278pt.
+ [21 <./grafovi/iris1.png>] [22 <./grafovi/iris2.png>]
+<grafovi/staklo1-3.png, id=115, 658.46pt x 655.44875pt>
+File: grafovi/staklo1-3.png Graphic file (type png)
+
+<use grafovi/staklo1-3.png>
+Package pdftex.def Info: grafovi/staklo1-3.png used on input line 546.
+(pdftex.def)             Requested size: 296.30426pt x 294.9492pt.
+
+<grafovi/staklo1-9.png, id=116, 672.5125pt x 670.505pt>
+File: grafovi/staklo1-9.png Graphic file (type png)
+
+<use grafovi/staklo1-9.png>
+Package pdftex.def Info: grafovi/staklo1-9.png used on input line 553.
+(pdftex.def)             Requested size: 302.62782pt x 301.72446pt.
+
+<grafovi/staklo2-3.png, id=117, 664.4825pt x 664.4825pt>
+File: grafovi/staklo2-3.png Graphic file (type png)
+
+<use grafovi/staklo2-3.png>
+Package pdftex.def Info: grafovi/staklo2-3.png used on input line 559.
+(pdftex.def)             Requested size: 299.01436pt x 299.01436pt.
+ [23 <./grafovi/staklo1-3.png>] [24 <./grafovi/staklo1-9.png> <./grafovi/staklo
+2-3.png>]
+<grafovi/staklo2-9.png, id=124, 665.48625pt x 662.475pt>
+File: grafovi/staklo2-9.png Graphic file (type png)
+
+<use grafovi/staklo2-9.png>
+Package pdftex.def Info: grafovi/staklo2-9.png used on input line 565.
+(pdftex.def)             Requested size: 299.46603pt x 298.111pt.
+ [25 <./grafovi/staklo2-9.png>]
+Poglavlje 6.
+(./zavrsni.bbl [26
+
+]
+
+Package natbib Warning: Empty `thebibliography' environment on input line 8.
+
+) [27
+
+] [28] (./zavrsni.aux) ) 
 Here is how much of TeX's memory you used:
- 7327 strings out of 493054
- 101598 string characters out of 6140587
- 198958 words of memory out of 5000000
- 10672 multiletter control sequences out of 15000+600000
+ 7417 strings out of 493054
+ 103073 string characters out of 6140587
+ 200312 words of memory out of 5000000
+ 10749 multiletter control sequences out of 15000+600000
  61559 words of font info for 79 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 43i,8n,58p,1717b,369s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 43i,8n,58p,1717b,373s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc}</us
 r/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-
 dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/typ
@@ -797,10 +863,10 @@ re/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-dist/fonts/typ
 e1/urw/times/utmbi8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmr8a.pf
 b></usr/share/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texmf-dis
 t/fonts/type1/urw/times/utmri8a.pfb>
-Output written on zavrsni.pdf (28 pages, 309570 bytes).
+Output written on zavrsni.pdf (33 pages, 490067 bytes).
 PDF statistics:
- 165 PDF objects out of 1000 (max. 8388607)
- 110 compressed objects within 2 object streams
+ 188 PDF objects out of 1000 (max. 8388607)
+ 121 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 36 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 71 words of extra memory for PDF output out of 10000 (max. 10000000)
 
