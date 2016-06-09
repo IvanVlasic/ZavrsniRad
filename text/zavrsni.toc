@@ -6,9 +6,9 @@
 \contentsline {section}{\numberline {2.3}Najzna\IeC {\v c}ajniji algoritmi za rje\IeC {\v s}avanje problema klasifikacije}{4}
 \contentsline {chapter}{\numberline {3}Genetsko programiranje}{6}
 \contentsline {section}{\numberline {3.1}Stvaranje po\IeC {\v c}etne populacije}{7}
-\contentsline {subsection}{\numberline {3.1.1}Full metoda}{7}
-\contentsline {subsection}{\numberline {3.1.2}Grow metoda}{7}
-\contentsline {subsection}{\numberline {3.1.3}Ramped half-and-half metoda}{7}
+\contentsline {subsection}{\numberline {3.1.1}Metoda full}{7}
+\contentsline {subsection}{\numberline {3.1.2}Metoda grow}{7}
+\contentsline {subsection}{\numberline {3.1.3}Metoda ramped half-and-half}{7}
 \contentsline {section}{\numberline {3.2}Procjena dobrote jedinke}{7}
 \contentsline {section}{\numberline {3.3}Genetski operatori}{8}
 \contentsline {subsection}{\numberline {3.3.1}Selekcija}{8}
@@ -24,8 +24,8 @@
 \contentsline {section}{\numberline {4.3}Funkcije \IeC {\v c}vorova}{15}
 \contentsline {section}{\numberline {4.4}Funkcije dobrote}{16}
 \contentsline {section}{\numberline {4.5}Parametri i konfiguracijske datoteke}{17}
-\contentsline {chapter}{\numberline {5}Primjena i analiza rezultata}{20}
-\contentsline {section}{\numberline {5.1}\textit {Iris flower data set}}{20}
-\contentsline {subsection}{\numberline {5.1.1}Klasifikacija stakla}{22}
-\contentsline {chapter}{\numberline {6}Zaklju\IeC {\v c}ak}{26}
-\contentsline {chapter}{Literatura}{27}
+\contentsline {chapter}{\numberline {5}Primjena i analiza rezultata}{21}
+\contentsline {section}{\numberline {5.1}\textit {Iris flower data set}}{21}
+\contentsline {subsection}{\numberline {5.1.1}Klasifikacija stakla}{23}
+\contentsline {chapter}{\numberline {6}Zaklju\IeC {\v c}ak}{27}
+\contentsline {chapter}{Literatura}{28}

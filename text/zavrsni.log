@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.5.8)  29 MAY 2016 16:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.5.8)  10 JUN 2016 00:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -727,16 +727,16 @@ File: images/mutacija.jpg Graphic file (type jpg)
 <use images/mutacija.jpg>
 Package pdftex.def Info: images/mutacija.jpg used on input line 180.
 (pdftex.def)             Requested size: 292.0935pt x 177.06285pt.
-
-Overfull \hbox (8.06189pt too wide) in paragraph at lines 186--186
+ [10 <./images/krizanje.jpg>]
+Overfull \hbox (8.06189pt too wide) in paragraph at lines 187--187
 []\T1/ptm/b/n/17.28 Primjena ge-net-skog pro-gra-mi-ra-nja na pro-blem kla-
  []
 
-[10 <./images/krizanje.jpg>] [11 <./images/mutacija.jpg>]
+[11 <./images/mutacija.jpg>]
 <images/stablo.png, id=68, 299.1175pt x 319.1925pt>
 File: images/stablo.png Graphic file (type png)
  <use images/stablo.png>
-Package pdftex.def Info: images/stablo.png used on input line 199.
+Package pdftex.def Info: images/stablo.png used on input line 200.
 (pdftex.def)             Requested size: 179.47188pt x 191.51697pt.
 
 [12 <./images/stablo.png>]
@@ -744,7 +744,7 @@ Poglavlje 4.
 <images/xml2.png, id=74, 414.54875pt x 351.3125pt>
 File: images/xml2.png Graphic file (type png)
  <use images/xml2.png>
-Package pdftex.def Info: images/xml2.png used on input line 235.
+Package pdftex.def Info: images/xml2.png used on input line 236.
 (pdftex.def)             Requested size: 248.73116pt x 210.78911pt.
 
 [13
@@ -784,64 +784,64 @@ File: images/rezultati.png Graphic file (type png)
 <use images/rezultati.png>
 Package pdftex.def Info: images/rezultati.png used on input line 437.
 (pdftex.def)             Requested size: 114.42838pt x 161.40424pt.
- [19 <./images/learning.png> <./images/rezultati.png>]
+ [19 <./images/learning.png>] [20 <./images/rezultati.png>]
 Poglavlje 5.
 LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <17.28> not available
 (Font)              Font shape `T1/ptm/b/it' tried instead on input line 447.
-[20
+[21
 
-] <grafovi/iris1.png, id=107, 669.50125pt x 665.48625pt>
+] <grafovi/iris1.png, id=110, 669.50125pt x 665.48625pt>
 File: grafovi/iris1.png Graphic file (type png)
 
 <use grafovi/iris1.png>
 Package pdftex.def Info: grafovi/iris1.png used on input line 493.
 (pdftex.def)             Requested size: 301.27278pt x 299.46603pt.
- <grafovi/iris2.png, id=108, 662.475pt x 669.50125pt>
+ <grafovi/iris2.png, id=111, 662.475pt x 669.50125pt>
 File: grafovi/iris2.png Graphic file (type png)
 
 <use grafovi/iris2.png>
 Package pdftex.def Info: grafovi/iris2.png used on input line 504.
 (pdftex.def)             Requested size: 298.111pt x 301.27278pt.
- [21 <./grafovi/iris1.png>] [22 <./grafovi/iris2.png>]
-<grafovi/staklo1-3.png, id=115, 658.46pt x 655.44875pt>
+ [22 <./grafovi/iris1.png>] [23 <./grafovi/iris2.png>]
+<grafovi/staklo1-3.png, id=118, 658.46pt x 655.44875pt>
 File: grafovi/staklo1-3.png Graphic file (type png)
 
 <use grafovi/staklo1-3.png>
 Package pdftex.def Info: grafovi/staklo1-3.png used on input line 546.
 (pdftex.def)             Requested size: 296.30426pt x 294.9492pt.
 
-<grafovi/staklo1-9.png, id=116, 672.5125pt x 670.505pt>
+<grafovi/staklo1-9.png, id=119, 672.5125pt x 670.505pt>
 File: grafovi/staklo1-9.png Graphic file (type png)
 
 <use grafovi/staklo1-9.png>
 Package pdftex.def Info: grafovi/staklo1-9.png used on input line 553.
 (pdftex.def)             Requested size: 302.62782pt x 301.72446pt.
 
-<grafovi/staklo2-3.png, id=117, 664.4825pt x 664.4825pt>
+<grafovi/staklo2-3.png, id=120, 664.4825pt x 664.4825pt>
 File: grafovi/staklo2-3.png Graphic file (type png)
 
 <use grafovi/staklo2-3.png>
 Package pdftex.def Info: grafovi/staklo2-3.png used on input line 559.
 (pdftex.def)             Requested size: 299.01436pt x 299.01436pt.
- [23 <./grafovi/staklo1-3.png>] [24 <./grafovi/staklo1-9.png> <./grafovi/staklo
+ [24 <./grafovi/staklo1-3.png>] [25 <./grafovi/staklo1-9.png> <./grafovi/staklo
 2-3.png>]
-<grafovi/staklo2-9.png, id=124, 665.48625pt x 662.475pt>
+<grafovi/staklo2-9.png, id=127, 665.48625pt x 662.475pt>
 File: grafovi/staklo2-9.png Graphic file (type png)
 
 <use grafovi/staklo2-9.png>
 Package pdftex.def Info: grafovi/staklo2-9.png used on input line 565.
 (pdftex.def)             Requested size: 299.46603pt x 298.111pt.
- [25 <./grafovi/staklo2-9.png>]
+ [26 <./grafovi/staklo2-9.png>]
 Poglavlje 6.
-(./zavrsni.bbl [26
+(./zavrsni.bbl [27
 
 ]
 
 Package natbib Warning: Empty `thebibliography' environment on input line 8.
 
-) [27
+) [28
 
-] [28] (./zavrsni.aux) ) 
+] [29] (./zavrsni.aux) ) 
 Here is how much of TeX's memory you used:
  7417 strings out of 493054
  103073 string characters out of 6140587
@@ -863,10 +863,10 @@ re/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-dist/fonts/typ
 e1/urw/times/utmbi8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmr8a.pf
 b></usr/share/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texmf-dis
 t/fonts/type1/urw/times/utmri8a.pfb>
-Output written on zavrsni.pdf (33 pages, 490067 bytes).
+Output written on zavrsni.pdf (34 pages, 490787 bytes).
 PDF statistics:
- 188 PDF objects out of 1000 (max. 8388607)
- 121 compressed objects within 2 object streams
+ 191 PDF objects out of 1000 (max. 8388607)
+ 123 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  71 words of extra memory for PDF output out of 10000 (max. 10000000)
 
