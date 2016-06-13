@@ -1,36 +1,24 @@
 <ECF>
         <Genotype>
-                    <Tree>
+                  <Tree>
                         <Entry key="maxdepth">5</Entry>
                         <Entry key="mindepth">1</Entry>
                         <Entry key="functionset">sqrt log iflte max min ifpos sin cos + - * /</Entry>
                         <Entry key="terminalset">X0 X1 X2 X3 X4 X5 X6 X7 X8</Entry>
                 </Tree>
-                    <Tree>
+                   <Tree>
                         <Entry key="maxdepth">5</Entry>
                         <Entry key="mindepth">1</Entry>
                         <Entry key="functionset">sqrt log iflte max min ifpos sin cos + - * /</Entry>
                         <Entry key="terminalset">X0 X1 X2 X3 X4 X5 X6 X7 X8</Entry>
                 </Tree>
-                     <Tree>
+                   <Tree>
                         <Entry key="maxdepth">5</Entry>
                         <Entry key="mindepth">1</Entry>
                         <Entry key="functionset">sqrt log iflte max min ifpos sin cos + - * /</Entry>
                         <Entry key="terminalset">X0 X1 X2 X3 X4 X5 X6 X7 X8</Entry>
                 </Tree>
-                     <Tree>
-                        <Entry key="maxdepth">5</Entry>
-                        <Entry key="mindepth">1</Entry>
-                        <Entry key="functionset">sqrt log iflte max min ifpos sin cos + - * /</Entry>
-                        <Entry key="terminalset">X0 X1 X2 X3 X4 X5 X6 X7 X8</Entry>
-                </Tree>
-                     <Tree>
-                        <Entry key="maxdepth">5</Entry>
-                        <Entry key="mindepth">1</Entry>
-                        <Entry key="functionset">sqrt log iflte max min ifpos sin cos + - * /</Entry>
-                        <Entry key="terminalset">X0 X1 X2 X3 X4 X5 X6 X7 X8</Entry>
-                </Tree>
-                     <Tree>
+                   <Tree>
                         <Entry key="maxdepth">5</Entry>
                         <Entry key="mindepth">1</Entry>
                         <Entry key="functionset">sqrt log iflte max min ifpos sin cos + - * /</Entry>
@@ -38,12 +26,12 @@
                 </Tree>
               </Genotype>
         <Registry>
-                <Entry key="population.size">500></Entry>
-                <Entry key="mutation.indprob">0.9></Entry>
-                <Entry key="classesNum">6</Entry>
+                <Entry key="population.size">100</Entry>
+                <Entry key="mutation.indprob">0.3></Entry>
+                <Entry key="classesNum">4</Entry>
                 <Entry key="resultsfile">results.txt</Entry>
-                <Entry key="inputfile">glass.data.txt</Entry>
-                <Entry key="testfile">glass.data.test.txt</Entry>
+                <Entry key="inputfile">car.data.txt</Entry>
+                <Entry key="testfile">car.data.test.txt</Entry>
         </Registry>
 
 </ECF>

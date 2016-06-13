@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.5.8)  10 JUN 2016 00:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.5.8)  13 JUN 2016 09:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -700,11 +700,11 @@ Poglavlje 1.
 ]
 Poglavlje 2.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <17.28> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 59.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 61.
 [2
 
 ] [3]
-Overfull \hbox (7.04172pt too wide) in paragraph at lines 95--95
+Overfull \hbox (7.04172pt too wide) in paragraph at lines 97--97
 []\T1/ptm/b/n/17.28 Najzna£ajniji al-go-ritmi za rje-²a-va-nje pro-blema kla-
  []
 
@@ -716,19 +716,19 @@ Poglavlje 3.
 File: images/krizanje.jpg Graphic file (type jpg)
 
 <use images/krizanje.jpg>
-Package pdftex.def Info: images/krizanje.jpg used on input line 170.
+Package pdftex.def Info: images/krizanje.jpg used on input line 172.
 (pdftex.def)             Requested size: 328.83104pt x 310.76338pt.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 171.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 173.
  [9]
 <images/mutacija.jpg, id=61, 486.81876pt x 295.1025pt>
 File: images/mutacija.jpg Graphic file (type jpg)
 
 <use images/mutacija.jpg>
-Package pdftex.def Info: images/mutacija.jpg used on input line 180.
+Package pdftex.def Info: images/mutacija.jpg used on input line 182.
 (pdftex.def)             Requested size: 292.0935pt x 177.06285pt.
  [10 <./images/krizanje.jpg>]
-Overfull \hbox (8.06189pt too wide) in paragraph at lines 187--187
+Overfull \hbox (8.06189pt too wide) in paragraph at lines 189--189
 []\T1/ptm/b/n/17.28 Primjena ge-net-skog pro-gra-mi-ra-nja na pro-blem kla-
  []
 
@@ -736,7 +736,7 @@ Overfull \hbox (8.06189pt too wide) in paragraph at lines 187--187
 <images/stablo.png, id=68, 299.1175pt x 319.1925pt>
 File: images/stablo.png Graphic file (type png)
  <use images/stablo.png>
-Package pdftex.def Info: images/stablo.png used on input line 200.
+Package pdftex.def Info: images/stablo.png used on input line 202.
 (pdftex.def)             Requested size: 179.47188pt x 191.51697pt.
 
 [12 <./images/stablo.png>]
@@ -744,13 +744,13 @@ Poglavlje 4.
 <images/xml2.png, id=74, 414.54875pt x 351.3125pt>
 File: images/xml2.png Graphic file (type png)
  <use images/xml2.png>
-Package pdftex.def Info: images/xml2.png used on input line 236.
+Package pdftex.def Info: images/xml2.png used on input line 238.
 (pdftex.def)             Requested size: 248.73116pt x 210.78911pt.
 
 [13
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 257--261
+Underfull \hbox (badness 10000) in paragraph at lines 259--263
 
  []
 
@@ -758,10 +758,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 257--261
 <images/xml.png, id=89, 725.71124pt x 197.73875pt>
 File: images/xml.png Graphic file (type png)
  <use images/xml.png>
-Package pdftex.def Info: images/xml.png used on input line 378.
+Package pdftex.def Info: images/xml.png used on input line 380.
 (pdftex.def)             Requested size: 435.4301pt x 118.64417pt.
 
-Overfull \hbox (22.86513pt too wide) in paragraph at lines 378--379
+Overfull \hbox (22.86513pt too wide) in paragraph at lines 380--381
  [][] 
  []
 
@@ -769,84 +769,174 @@ Overfull \hbox (22.86513pt too wide) in paragraph at lines 378--379
 File: images/klase.png Graphic file (type png)
 
 <use images/klase.png>
-Package pdftex.def Info: images/klase.png used on input line 397.
+Package pdftex.def Info: images/klase.png used on input line 399.
 (pdftex.def)             Requested size: 75.28181pt x 41.55556pt.
  [18 <./images/xml.png> <./images/klase.png>]
 <images/learning.png, id=97, 94.3525pt x 222.8325pt>
 File: images/learning.png Graphic file (type png)
  <use images/learning.png>
-Package pdftex.def Info: images/learning.png used on input line 422.
-(pdftex.def)             Requested size: 56.61192pt x 133.70053pt.
+Package pdftex.def Info: images/learning.png used on input line 424.
+(pdftex.def)             Requested size: 47.17612pt x 111.41597pt.
 
 <images/rezultati.png, id=98, 190.7125pt x 269.005pt>
 File: images/rezultati.png Graphic file (type png)
 
 <use images/rezultati.png>
-Package pdftex.def Info: images/rezultati.png used on input line 437.
-(pdftex.def)             Requested size: 114.42838pt x 161.40424pt.
- [19 <./images/learning.png>] [20 <./images/rezultati.png>]
+Package pdftex.def Info: images/rezultati.png used on input line 439.
+(pdftex.def)             Requested size: 95.356pt x 134.50217pt.
+ [19 <./images/learning.png> <./images/rezultati.png>]
 Poglavlje 5.
 LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <17.28> not available
-(Font)              Font shape `T1/ptm/b/it' tried instead on input line 447.
-[21
+(Font)              Font shape `T1/ptm/b/it' tried instead on input line 449.
+[20
 
-] <grafovi/iris1.png, id=110, 669.50125pt x 665.48625pt>
+] <grafovi/boxplotIrisSTest.png, id=107, 647.41875pt x 399.4925pt>
+File: grafovi/boxplotIrisSTest.png Graphic file (type png)
+
+<use grafovi/boxplotIrisSTest.png>
+Package pdftex.def Info: grafovi/boxplotIrisSTest.png used on input line 499.
+(pdftex.def)             Requested size: 323.70857pt x 199.74576pt.
+
+<grafovi/boxplotIrisS.png, id=108, 639.38875pt x 405.515pt>
+File: grafovi/boxplotIrisS.png Graphic file (type png)
+
+<use grafovi/boxplotIrisS.png>
+Package pdftex.def Info: grafovi/boxplotIrisS.png used on input line 505.
+(pdftex.def)             Requested size: 319.69359pt x 202.75699pt.
+
+<grafovi/boxplotIrisMTest.png, id=109, 646.415pt x 394.47375pt>
+File: grafovi/boxplotIrisMTest.png Graphic file (type png)
+
+<use grafovi/boxplotIrisMTest.png>
+Package pdftex.def Info: grafovi/boxplotIrisMTest.png used on input line 515.
+(pdftex.def)             Requested size: 323.20671pt x 197.23639pt.
+
+<grafovi/boxplotIrisM.png, id=110, 654.445pt x 435.6275pt>
+File: grafovi/boxplotIrisM.png Graphic file (type png)
+
+<use grafovi/boxplotIrisM.png>
+Package pdftex.def Info: grafovi/boxplotIrisM.png used on input line 521.
+(pdftex.def)             Requested size: 327.2217pt x 217.81322pt.
+
+<grafovi/iris1.png, id=111, 669.50125pt x 665.48625pt>
 File: grafovi/iris1.png Graphic file (type png)
-
-<use grafovi/iris1.png>
-Package pdftex.def Info: grafovi/iris1.png used on input line 493.
+ <use grafovi/iris1.png>
+Package pdftex.def Info: grafovi/iris1.png used on input line 527.
 (pdftex.def)             Requested size: 301.27278pt x 299.46603pt.
- <grafovi/iris2.png, id=111, 662.475pt x 669.50125pt>
-File: grafovi/iris2.png Graphic file (type png)
 
-<use grafovi/iris2.png>
-Package pdftex.def Info: grafovi/iris2.png used on input line 504.
+[21 <./grafovi/boxplotIrisSTest.png>]
+<grafovi/iris2.png, id=115, 662.475pt x 669.50125pt>
+File: grafovi/iris2.png Graphic file (type png)
+ <use grafovi/iris2.png>
+Package pdftex.def Info: grafovi/iris2.png used on input line 541.
 (pdftex.def)             Requested size: 298.111pt x 301.27278pt.
- [22 <./grafovi/iris1.png>] [23 <./grafovi/iris2.png>]
-<grafovi/staklo1-3.png, id=118, 658.46pt x 655.44875pt>
+
+[22 <./grafovi/boxplotIrisS.png>]
+<grafovi/boxplotGlassSTest.png, id=119, 621.32124pt x 388.45125pt>
+File: grafovi/boxplotGlassSTest.png Graphic file (type png)
+
+<use grafovi/boxplotGlassSTest.png>
+Package pdftex.def Info: grafovi/boxplotGlassSTest.png used on input line 583.
+(pdftex.def)             Requested size: 310.65987pt x 194.22514pt.
+
+<grafovi/boxplotGlassS.png, id=120, 610.28pt x 399.4925pt>
+File: grafovi/boxplotGlassS.png Graphic file (type png)
+
+<use grafovi/boxplotGlassS.png>
+Package pdftex.def Info: grafovi/boxplotGlassS.png used on input line 589.
+(pdftex.def)             Requested size: 305.13925pt x 199.74576pt.
+
+<grafovi/boxplotGlassMTest.png, id=121, 623.32875pt x 407.5225pt>
+File: grafovi/boxplotGlassMTest.png Graphic file (type png)
+
+<use grafovi/boxplotGlassMTest.png>
+Package pdftex.def Info: grafovi/boxplotGlassMTest.png used on input line 595.
+(pdftex.def)             Requested size: 311.6636pt x 203.76074pt.
+
+<grafovi/boxplotGlassM.png, id=122, 609.27625pt x 403.5075pt>
+File: grafovi/boxplotGlassM.png Graphic file (type png)
+
+<use grafovi/boxplotGlassM.png>
+Package pdftex.def Info: grafovi/boxplotGlassM.png used on input line 601.
+(pdftex.def)             Requested size: 304.63737pt x 201.75325pt.
+
+<grafovi/staklo1-3.png, id=123, 658.46pt x 655.44875pt>
 File: grafovi/staklo1-3.png Graphic file (type png)
 
 <use grafovi/staklo1-3.png>
-Package pdftex.def Info: grafovi/staklo1-3.png used on input line 546.
+Package pdftex.def Info: grafovi/staklo1-3.png used on input line 607.
 (pdftex.def)             Requested size: 296.30426pt x 294.9492pt.
 
-<grafovi/staklo1-9.png, id=119, 672.5125pt x 670.505pt>
-File: grafovi/staklo1-9.png Graphic file (type png)
-
-<use grafovi/staklo1-9.png>
-Package pdftex.def Info: grafovi/staklo1-9.png used on input line 553.
-(pdftex.def)             Requested size: 302.62782pt x 301.72446pt.
-
-<grafovi/staklo2-3.png, id=120, 664.4825pt x 664.4825pt>
+<grafovi/staklo2-3.png, id=124, 664.4825pt x 664.4825pt>
 File: grafovi/staklo2-3.png Graphic file (type png)
 
 <use grafovi/staklo2-3.png>
-Package pdftex.def Info: grafovi/staklo2-3.png used on input line 559.
+Package pdftex.def Info: grafovi/staklo2-3.png used on input line 614.
 (pdftex.def)             Requested size: 299.01436pt x 299.01436pt.
- [24 <./grafovi/staklo1-3.png>] [25 <./grafovi/staklo1-9.png> <./grafovi/staklo
-2-3.png>]
-<grafovi/staklo2-9.png, id=127, 665.48625pt x 662.475pt>
-File: grafovi/staklo2-9.png Graphic file (type png)
+ [23 <./grafovi/boxplotIrisMTest.png>] [24 <./grafovi/boxplotIrisM.png>]
+<grafovi/boxplotCarSTest.png, id=131, 630.355pt x 405.515pt>
+File: grafovi/boxplotCarSTest.png Graphic file (type png)
 
-<use grafovi/staklo2-9.png>
-Package pdftex.def Info: grafovi/staklo2-9.png used on input line 565.
-(pdftex.def)             Requested size: 299.46603pt x 298.111pt.
- [26 <./grafovi/staklo2-9.png>]
+<use grafovi/boxplotCarSTest.png>
+Package pdftex.def Info: grafovi/boxplotCarSTest.png used on input line 644.
+(pdftex.def)             Requested size: 315.17673pt x 202.75699pt.
+
+<grafovi/boxplotCarS.png, id=132, 643.40375pt x 424.58624pt>
+File: grafovi/boxplotCarS.png Graphic file (type png)
+
+<use grafovi/boxplotCarS.png>
+Package pdftex.def Info: grafovi/boxplotCarS.png used on input line 650.
+(pdftex.def)             Requested size: 321.70108pt x 212.2926pt.
+
+<grafovi/boxplotCarMTest.png, id=133, 622.325pt x 410.53375pt>
+File: grafovi/boxplotCarMTest.png Graphic file (type png)
+
+<use grafovi/boxplotCarMTest.png>
+Package pdftex.def Info: grafovi/boxplotCarMTest.png used on input line 667.
+(pdftex.def)             Requested size: 311.16173pt x 205.26637pt.
+
+<grafovi/boxplotCarM.png, id=134, 635.37375pt x 423.5825pt>
+File: grafovi/boxplotCarM.png Graphic file (type png)
+
+<use grafovi/boxplotCarM.png>
+Package pdftex.def Info: grafovi/boxplotCarM.png used on input line 673.
+(pdftex.def)             Requested size: 317.6861pt x 211.79073pt.
+
+<grafovi/automobili1-3.png, id=135, 674.52pt x 664.4825pt>
+File: grafovi/automobili1-3.png Graphic file (type png)
+
+<use grafovi/automobili1-3.png>
+Package pdftex.def Info: grafovi/automobili1-3.png used on input line 679.
+(pdftex.def)             Requested size: 303.53119pt x 299.01436pt.
+
+<grafovi/automobili2-3.png, id=136, 672.5125pt x 673.51625pt>
+File: grafovi/automobili2-3.png Graphic file (type png)
+
+<use grafovi/automobili2-3.png>
+Package pdftex.def Info: grafovi/automobili2-3.png used on input line 686.
+(pdftex.def)             Requested size: 302.62782pt x 303.07951pt.
+ [25 <./grafovi/iris1.png>] [26 <./grafovi/iris2.png> <./grafovi/boxplotGlassST
+est.png>] [27 <./grafovi/boxplotGlassS.png> <./grafovi/boxplotGlassMTest.png>] 
+[28 <./grafovi/boxplotGlassM.png> <./grafovi/staklo1-3.png>] [29 <./grafovi/sta
+klo2-3.png> <./grafovi/boxplotCarSTest.png>]
+[30 <./grafovi/boxplotCarS.png> <./grafovi/boxplotCarMTest.png>] [31 <./grafovi
+/boxplotCarM.png> <./grafovi/automobili1-3.png>] [32 <./grafovi/automobili2-3.p
+ng>]
 Poglavlje 6.
-(./zavrsni.bbl [27
+(./zavrsni.bbl [33
 
 ]
 
 Package natbib Warning: Empty `thebibliography' environment on input line 8.
 
-) [28
+) [34
 
-] [29] (./zavrsni.aux) ) 
+] [35] (./zavrsni.aux) ) 
 Here is how much of TeX's memory you used:
- 7417 strings out of 493054
- 103073 string characters out of 6140587
- 200312 words of memory out of 5000000
- 10749 multiletter control sequences out of 15000+600000
+ 7476 strings out of 493054
+ 104795 string characters out of 6140587
+ 201312 words of memory out of 5000000
+ 10796 multiletter control sequences out of 15000+600000
  61559 words of font info for 79 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  43i,8n,58p,1717b,373s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -863,10 +953,10 @@ re/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-dist/fonts/typ
 e1/urw/times/utmbi8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmr8a.pf
 b></usr/share/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texmf-dis
 t/fonts/type1/urw/times/utmri8a.pfb>
-Output written on zavrsni.pdf (34 pages, 490787 bytes).
+Output written on zavrsni.pdf (40 pages, 589529 bytes).
 PDF statistics:
- 191 PDF objects out of 1000 (max. 8388607)
- 123 compressed objects within 2 object streams
+ 224 PDF objects out of 1000 (max. 8388607)
+ 138 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 71 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 131 words of extra memory for PDF output out of 10000 (max. 10000000)
 

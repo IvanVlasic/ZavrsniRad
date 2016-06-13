@@ -24,8 +24,9 @@
 \contentsline {section}{\numberline {4.3}Funkcije \IeC {\v c}vorova}{15}
 \contentsline {section}{\numberline {4.4}Funkcije dobrote}{16}
 \contentsline {section}{\numberline {4.5}Parametri i konfiguracijske datoteke}{17}
-\contentsline {chapter}{\numberline {5}Primjena i analiza rezultata}{21}
-\contentsline {section}{\numberline {5.1}\textit {Iris flower data set}}{21}
-\contentsline {subsection}{\numberline {5.1.1}Klasifikacija stakla}{23}
-\contentsline {chapter}{\numberline {6}Zaklju\IeC {\v c}ak}{27}
-\contentsline {chapter}{Literatura}{28}
+\contentsline {chapter}{\numberline {5}Primjena i analiza rezultata}{20}
+\contentsline {section}{\numberline {5.1}\textit {Iris flower data set}}{20}
+\contentsline {subsection}{\numberline {5.1.1}Klasifikacija stakla}{22}
+\contentsline {subsection}{\numberline {5.1.2}Ispitivanje automobila}{24}
+\contentsline {chapter}{\numberline {6}Zaklju\IeC {\v c}ak}{33}
+\contentsline {chapter}{Literatura}{34}

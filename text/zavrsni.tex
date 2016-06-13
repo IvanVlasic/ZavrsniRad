@@ -44,7 +44,9 @@
 \izvornik
 
 % Dodavanje zahvale ili prazne stranice. Ako ne želite dodati zahvalu, naredbu ostavite radi prazne stranice.
-\zahvala{}
+\zahvala{Zahvaljujem se mentoru prof. dr. sc. Domagoju Jakoboviću na savjetima i pomoći pri izradi ovog završnog rada.
+
+Također se zahvaljujem svojim roditeljima i obitelji na stalnoj podršci i razumijevanju tijekom školovanja.}
 
 \tableofcontents
 
@@ -95,7 +97,7 @@ Jedan od glavnih problema do kojih može doći je problem šuma. Šum je neželj
 \section{Najznačajniji algoritmi za rješavanje problema klasifikacije}
 Algoritama za rješavanje problema klasifikacije postoji mnogo. Razlikuju se po svojoj jednostavnosti primjene, točnosti i razumljivosti. Uspješnost algoritama u velikoj mjeri ovisi o problemu kojeg rješavamo. Ponekad nam je važnija brzina klasifikatora od njegove točnosti, a u drugim slučajevima je važnije da klasifikator ima veliku točnost nego brzinu ili jednostavnost. Među algoritme linearne klasifikacije spadaju Fisherova linearna diskriminanta i Naivni Bayes klasifikatori koji su se u početku pokazali dosta učinkovitima za rješavanje složenih problema, no detaljna analiza 2006. godine je pokazala da postoje drugi algoritmi koji su dosta bolji, poput algoritma \textit{random forest}. U tu skupinu još spadaju logistička regresija i \textit{perceptron}. Jedan od češće korištenih algoritama je i metoda potpornih vektora (engl. \textit{Support Vector Machine}) koji se bazira na učenju razdvajanjem funkcija i estimacije funkcije u regresiji. U velikoj upotrebi su i neuronske mreže koje su u širom smislu replika ljudskog mozga kojom se nastoji simulirati postupak učenja. To je skup međusobno povezanih jednostavnih procesnih elemenata koji se nazivaju čvorovi ili neuroni, i čija se funkcionalnost zasniva na biološkom neuronu. Neuronske mreže su vrlo dobre u procjeni nelinearnih odnosa uzoraka, mogu raditi s nejasnim ili manjkavim podacima, mogu raditi s velikim brojem varijabli i prilagođavati se okolini što ih čini pogodnim za probleme klasifikacije. Još neki od poznatijih metoda i algoritama su kvadratna metoda koja je dizajnirana za situacije kada karakteristike svake grupe imaju normalnu distribuciju te metoda kernel procjene.
 
-Za probleme klasifikacije također se može koristiti i genetsko programiranje koje se zasniva na razvoju stabala odluke. Prednost genetskog programiranja leži u činjenici da može otkriti manje vidljive veze između podataka. Važna primjena je postignuta u otkrivanju gena. Više o tome će biti objašnjeno u sljedećih nekoliko poglavlja.
+Za probleme klasifikacije također se može koristiti i genetsko programiranje koje se zasniva na razvoju stabala odluke. Prednost genetskog programiranja leži u činjenici da može otkriti manje vidljive veze između podataka. Više o tome će biti objašnjeno u sljedećih nekoliko poglavlja.
 
 
 \chapter{Genetsko programiranje}
@@ -419,12 +421,12 @@ Na slici 4.4 prikazana je datoteka za učenje čiji primjeri imaju četiri atrib
 
 \begin{figure}[htb]
 \centering
-\includegraphics[scale=0.6]{images/learning}
+\includegraphics[scale=0.5]{images/learning}
 \caption{Datoteka sa primjerima za učenje}
 \end{figure}
 
 
-Datoteka \textit{test.txt} je pretpostavljane vrijednost parametra \textit{testfile} u kojoj se nalaze primjeri za testiranje koji imaju identičnu strukturu.
+Datoteka \textit{test.txt} je pretpostavljane vrijednost parametra \textit{testfile} u kojoj se nalaze primjeri za ispitivanje koji imaju identičnu strukturu.
 
 Detaljnije objašnjenje o atributima i šta točno znače za navedene datoteke ćemo opisati u sljedećem poglavlju.
 
@@ -434,7 +436,7 @@ U datoteci se za svaku generaciju zapisuje broj generacije i najveće vrijednost
 
 \begin{figure}[htb]
 \centering
-\includegraphics[scale=0.6]{images/rezultati}
+\includegraphics[scale=0.5]{images/rezultati}
 \caption{Struktura datoteke sa rezultatima}
 \end{figure}
 
@@ -442,7 +444,7 @@ U datoteci se za svaku generaciju zapisuje broj generacije i najveće vrijednost
 
 \chapter{Primjena i analiza rezultata}
 
-Implementirane klasifikatore ćemo primijeniti na dva primjera problema klasifikacije. Prvi je vjerojatno najpoznatiji skup podataka za problem klasifikacije u kojem je cilj klasificirati različite porodice cvijeta iris. Drugi problem je problem klasifikacije stakla na osnovu svojstava i kemijskog sastava.
+Implementirane klasifikatore ćemo primijeniti na tri primjera problema klasifikacije. Prvi je vjerojatno najpoznatiji skup podataka za problem klasifikacije u kojem je cilj klasificirati različite porodice cvijeta iris. Drugi problem je problem klasifikacije stakla na osnovu svojstava i kemijskog sastava. Posljednji primjer je problem klasifikacije kvalitete automobila. Svi primjeri će biti testirani sa najviše 50 000 evaluacija.
 
 \section{\textit{Iris flower data set}}
 
@@ -482,19 +484,54 @@ Dužina lapa & Širina lapa & Dužina latica & Širina latica & Porodica & Oznak
 \end{tabular}
 \end{center}
 
-Primjer ćemo testirati na populaciji od 100 jedinki, s dubinom stabla između 1 i 5 te faktorom mutiranja 0.3. U svim rezultatima omjer primjera za učenje i ispitivanje je 70:30. 
+Primjer će se ispitati na različitim kombinacijama veličine populacije i faktora mutacije. Veličine populacije tijekom testiranja su 50, 100, 200 i 500, a faktori mutacije 0.3, 0.5, 0.7 i 0.9.
 
-Tijekom učenja klasifikatora ujedno ćemo u svakoj generaciji ispitati i uspješnost klasificiranja na skupu za ispitivanje.
+U početku ćemo na populaciji veličine 100 jedinki ispitati za koji faktor mutacije postižemo najbolje rezultate, potom će se s tim faktorom ispitati i ostale veličine.
 
-Rezultate primjenom regresijskog GP-a s jednim stablom možemo vidjeti na slici 5.1
+Tijekom učenja klasifikatora ujedno ćemo u svakoj generaciji ispitati i uspješnost klasificiranja na skupu za ispitivanje. U svim rezultatima omjer primjera za učenje i ispitivanje je 70:30.
+
+Faktor mutacije s kojim su postignuti najbolji rezultati je 0.7, kao što je i vidljivo na slici 5.1.
+
+Detaljnija analiza za različite veličine populacije je prikazana na slici 5.2.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.5]{grafovi/boxplotIrisSTest}
+\caption{Regresijski GP s jednim stablom populacije veličine 100 ispitan s različitim faktorima mutacije - problem Iris}
+\end{figure}
+
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.5]{grafovi/boxplotIrisS}
+\caption{Regresijski GP s jednim stablom različitih veličina populacije ispitan s faktorom mutacije 0.7 - problem Iris}
+\end{figure}
+
+
+Isti način ispitivanja ćemo primjeniti i na regresijski GP s više stabala.
+Na slici 5.3 se uočava da se najbolji rezultati postižu za faktor mutacije 0.7, a rezultati za više populacija su vidljivi na slici 5.4.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.5]{grafovi/boxplotIrisMTest}
+\caption{Regresijski GP s više stabala populacije veličine 100 ispitan s različitim faktorima mutacije - problem Iris}
+\end{figure}
+
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.5]{grafovi/boxplotIrisM}
+\caption{Regresijski GP s više stabala različitih veličina populacije ispitan s faktorom mutacije 0.7 - problem Iris}
+\end{figure}
 
 \begin{figure}[htb]
 \centering
 \includegraphics[scale=0.45]{grafovi/iris1}
-\caption{Klasifikator s jednim stablom}
+\caption{Klasifikator s jednim stablom - problem Iris}
 \end{figure}
 
-Možemo zaključiti da klasifikator jako brzo dolazi do zadovoljavajućeg rješenja pomoću kojeg može sa 100\% uspješnosti predvidjeti klasu kojoj pripadaju primjeri za testiranje.
+
+Detaljniji graf rezultata s izraženom dobrotom tijekom svake generacije za veličinu populacije od 100 jedinki i s faktorom mutacije 0.3 primjenom regresijskog GP-a s jednim stablom je prikazan na slici 5.5. Primjer regresijskog GP-a uz više stabala s istim parametrima se nalazi na slici 5.6. Na oba grafa su prikazane najbolje jedinke u svakoj iteraciji.
+
+Možemo zaključiti da klasifikator jako brzo dolazi do zadovoljavajućeg rješenja pomoću kojeg može sa 100\% uspješnosti predvidjeti klasu kojoj pripadaju primjeri za ispitivanje.
 
 Kod regresijskog GP-a s više stabala vidimo da postižemo slične rezultate no da klasifikator uz dosta manje generacija dolazi do zadovoljavajućih rezultata.
  
@@ -502,12 +539,12 @@ Kod regresijskog GP-a s više stabala vidimo da postižemo slične rezultate no 
 \begin{figure}[htb]
 \centering
 \includegraphics[scale=0.45]{grafovi/iris2}
-\caption{Klasifikator s više stabala}
+\caption{Klasifikator s više stabala - problem Iris}
 \end{figure}
 
-Budući da se radi o problemu sa samo tri klase i početna populacija postiže rezultate s kojima može klasificirati primjere za testiranje s uspješnosti većom od 50\%.
+Budući da se radi o problemu sa samo tri klase i početna populacija postiže rezultate s kojima može klasificirati primjere za ispitivanje s uspješnosti većom od 50\%.
 
-Kako bi detaljnije testirali uspješnost rada klasifikator, primjeniti ćemo ih i na problem u kojem je cilj raspodijeliti primjere između većeg broja klasa.
+Kako bi detaljnije ispitali uspješnost rada klasifikator, primjeniti ćemo ih i na problem u kojem je cilj raspodijeliti primjere između većeg broja klasa.
 
 
 \subsection{Klasifikacija stakla}
@@ -539,35 +576,117 @@ Podaci se sastoje od 6 vrste stakla od kojih svi nemaju jednak broj primjera:
 
 Vidimo da se problem sastoji od većeg broja atributa i klasa, te da su brojevi primjeraka za pojedinu klasu dosta neuravnoteženi zbog čega možemo očekivati da će klasifikatorima biti puno teže pravilno odrediti klase.
 
-Dubina stabla će ponovno biti između 1 i 5, no za ovaj problem ćemo koristiti populaciju od 500 jedinki. Problem ćemo testirati i s različitim vjerojatnostima mutacije.
+Primjer će se testirati na isti način kao i prethodni.
 
-\begin{figure}[H]
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.5]{grafovi/boxplotGlassSTest}
+\caption{Regresijski GP s jednim stablom populacije veličine 100 ispitan s različitim faktorima mutacije - problem klasifikacije stakla}
+\end{figure}
+
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.5]{grafovi/boxplotGlassS}
+\caption{Regresijski GP s jednim stablom različitih veličina populacije ispitan s faktorom mutacije 0.7 - problem klasifikacije stakla}
+\end{figure}
+
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.5]{grafovi/boxplotGlassMTest}
+\caption{Regresijski GP s više stabala populacije veličine 100 ispitan s različitim faktorima mutacije - problem klasifikacije stakla}
+\end{figure}
+
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.5]{grafovi/boxplotGlassM}
+\caption{Regresijski GP s više stabala različitih veličina populacije ispitan s faktorom mutacije 0.7 - problem klasifikacije stakla}
+\end{figure}
+
+\begin{figure}[htb]
 \centering
 \includegraphics[scale=0.45]{grafovi/staklo1-3}
-\caption{Klasifikator s jednim stablom i faktorom mutacije 0.3}
+\caption{Klasifikator s jednim stablom - problem klasifikacije stakla}
 \end{figure}
 
 
 \begin{figure}[htb]
 \centering
-\includegraphics[scale=0.45]{grafovi/staklo1-9}
-\caption{Klasifikator s jednim stablom i faktorom mutacije 0.9}
-\end{figure}
-
-\begin{figure}[H]
-\centering
 \includegraphics[scale=0.45]{grafovi/staklo2-3}
-\caption{Klasifikator s više stabala i faktorom mutacije 0.3}
+\caption{Klasifikator s više stabala - problem klasifikacije stakla}
 \end{figure}
 
-\begin{figure}[H]
+Na slikama 5.7 i 5.8 se nalaze rezultati testiranja klasifikatora s jednim stablom. Na slikama 5.9 i 5.10 su rezultati za klasifikator s više stabala.
+
+Ponovno možemo primijetiti da klasifikator s više stabala dolazi do sličnih ili boljih rezultata u značajno manjem broju generacija. (Slike 5.11 i 5.12) Veći faktor mutacije obično dovodi i do boljih rezultata skupa za učenje, no vidimo da to obično ne pomaže točnosti klasifikacije primjera za ispitivanje. U ovom problemu klasifikatoru veliki problem predstavlja neuravnotežen broj primjera za pojedine klase zbog čega ne uspijevamo dobiti veliku točnost. Na rezultate može utjecati i izbor primjera koje koristimo za ispitivanje i učenje zbog čega bi bila potrebna detaljna analiza utjecaja svojstava na rezultate.
+
+
+\subsection{Ispitivanje automobila}
+
+Treći primjer je problem određivanja kvalitete automobila. Automobili se ocjenjuju na temelju sljedećih značajki:
+
+\begin{itemize}
+\item Cijena (vrlo visoka, visoka, srednja, niska)
+\item Cijena održavanja (vrlo visoka, visoka, srednja, niska)
+\item Broj vrata (dva, tri, četiri, pet i više)
+\item Broj ljudi (dva, četiri, pet i više)
+\item Veličina pretinca za prtljagu (mala, srednja, velika)
+\item Sigurnost automobila (mala, srednja, velika)
+\end{itemize}
+
+Cilj je automobil svrstati u jednu od četiri klase: neprihvatljiv, prihvatljiv, dobar, vrlo dobar.
+
+Dostupno je 1728 primjeraka za zadani problem koji će se koristiti u omjeru 70:30 za učenje i ispitivanje na isti način kao i u prethodnim primjerima.
+
+Ispitivanjem prikazanim na slici 5.13 je utvrđeno da se najbolji rezultati kod regresijskog GP-a s jednim stablom postižu s faktorom mutacije 0.5. Daljnje ispitivanja za različite veličine populacija prikazano je na slici 5.14.
+
+\begin{figure}[htb]
 \centering
-\includegraphics[scale=0.45]{grafovi/staklo2-9}
-\caption{Klasifikator s više stabala i faktorom mutacije 0.9}
+\includegraphics[scale=0.5]{grafovi/boxplotCarSTest}
+\caption{Regresijski GP s jednim stablom populacije veličine 100 ispitan s različitim faktorima mutacije - problem ispitivanja automobila}
+\end{figure}
+
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.5]{grafovi/boxplotCarS}
+\caption{Regresijski GP s jednim stablom populacije veličine 100 ispitan s faktorom mutacije 0.5 - problem ispitivanja automobila}
 \end{figure}
 
 
-Ponovno možemo primijetiti da klasifikator s više stabala dolazi do sličnih ili boljih rezultata u značajno manjem broju generacija. Veći faktor mutacije obično dovodi i do boljih rezultata skupa za testiranje, no vidimo da to obično ne pomaže točnosti klasifikacije primjera za učenje. U ovom problemu klasifikatoru veliki problem predstavlja neuravnotežen broj primjera za pojedine klase zbog čega ne uspijevamo dobiti veliku točnost. Na rezultate može utjecati i izbor primjera koje koristimo za testiranje i učenje zbog čega bi bila potrebna detaljna analiza utjecaja svojstava na rezultate.
+
+
+Isti postupak ćemo ponoviti i za regresijski GP s više stabala. Na slici 5.16 se nalaze rezultati ispitivanja za različite veličine populacija uz faktor mutacije 0.7 koji je dobiven ispitivanjem prikazanim na slici 5.15.
+
+Prikaz rezultata za svaku generaciju uz veličinu populacije od 100 jedinki i s faktorom mutacije 0.3 nalazi se na slikama 5.17 i 5.18.
+
+
+
+Porastom veličine populacije povećava se i kvaliteta rješenja. U ovom slučaju regresijski GP s jednim stablom postiže djelomično bolja rješenja. Potrebno je naglasiti da je klasifikator s jednim stablom puno manje računalno zahtjevan i iako klasifikator s više stabala do rješenja obično dolazi u manjem broju generacija, vrijeme koje je potrebno za izračune je puno duže.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.5]{grafovi/boxplotCarMTest}
+\caption{Regresijski GP s više stabala populacije veličine 100 ispitan s različitim faktorima mutacije - problem ispitivanja automobila}
+\end{figure}
+
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.5]{grafovi/boxplotCarM}
+\caption{Regresijski GP s više stabala populacije veličine 100 ispitan s faktorom mutacije 0.7 - problem ispitivanja automobila}
+\end{figure}
+
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.45]{grafovi/automobili1-3}
+\caption{Klasifikator s jednim stablom - problem ispitivanja automobila}
+\end{figure}
+
+
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.45]{grafovi/automobili2-3}
+\caption{Klasifikator s više stabala - problem ispitivanja automobila}
+\end{figure}
+
 
 \chapter{Zaključak}
 U radu smo opisali genetsko programiranje i problem klasifikacije te se malo pobliže upoznali sa načinom na koji rade. Vidjeli smo da se genetsko programiranje može uspješno koristiti za učenje klasifikatora no da je potrebno pripaziti na moguće probleme poput pojavljivanja pretjerane složenosti i prevelikog broja čvorova u stablima. Problemi s više atributa i klasa zahtijevaju i veće računalne resurse zbog čega ponekad nisu najbolje rješenje za velike izračune bez pristupa jačim uređajima. Navedeni klasifikatori se mogu dodatno poboljšati primjenom različitih operatora križanja mutiranja kao i funkcija koje se koriste u čvorovima za izračune. Moguće je i uvođenje skupa podataka kojim bi osigurali da ne dođe do prilagođavanja klasifikatora specifičnim podacima i šumu.
@@ -586,6 +705,7 @@ U radu smo opisali genetsko programiranje i problem klasifikacije te se malo pob
 	\item Wei-Yin Loh, Classification and regression trees. \\
 	\emph{http://www.stat.wisc.edu/~loh/treeprogs/guide/wires11.pdf}
 \end{enumerate}
+
 
 \begin{sazetak}
 Problemi klasifikacije su danas jedni od najraširenijih problema s kojima se susrećemo. U radu se opisuje uporaba genetskog programiranja na problem klasifikacije te implementacija i primjena klasifikatora s jednim ili više stabala odluke. Napravljena je analiza njihovog rada te su opisani problemi i moguća poboljšanja.

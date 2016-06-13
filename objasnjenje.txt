@@ -1,0 +1,19 @@
+vhigh - 0
+high - 1
+med - 2
+low - 3
+small - 0
+big - 1
+5more - 5
+more - 5
+unacc - 0
+acc - 1
+vgood - 3
+good - 2
+
+razredi = 0, 1, 2, 3
+buying = 0, 1, 2, 3
+doors = 2, 3, 4, 5
+persons = 2, 4, 5
+lug_boot = 0, 2, 1
+safety = 3, 2, 1
