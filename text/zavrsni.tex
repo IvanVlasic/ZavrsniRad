@@ -444,7 +444,7 @@ U datoteci se za svaku generaciju zapisuje broj generacije i najveće vrijednost
 
 \chapter{Primjena i analiza rezultata}
 
-Implementirane klasifikatore ćemo primijeniti na tri primjera problema klasifikacije. Prvi je vjerojatno najpoznatiji skup podataka za problem klasifikacije u kojem je cilj klasificirati različite porodice cvijeta iris. Drugi problem je problem klasifikacije stakla na osnovu svojstava i kemijskog sastava. Posljednji primjer je problem klasifikacije kvalitete automobila. Svi primjeri će biti testirani sa najviše 50 000 evaluacija.
+Implementirane klasifikatore ćemo primijeniti na tri primjera problema klasifikacije. Prvi je vjerojatno najpoznatiji skup podataka za problem klasifikacije u kojem je cilj klasificirati različite porodice cvijeta iris. Drugi problem je problem klasifikacije stakla na osnovu svojstava i kemijskog sastava. Posljednji primjer je problem klasifikacije kvalitete automobila. Svi primjeri će biti testirani sa najviše 50 000 evaluacija. Maksimalna dubina stabla je 5.
 
 \section{Iris flower data set}
 
@@ -454,20 +454,21 @@ Podaci se sastoje od tri klase po 50 primjeraka gdje je svaki primjerak definira
 
 Atributi koji se koriste su:
 \begin{itemize}
-\item dužina lapa
+\item duljina lapa
 \item širina lapa
-\item dužina latica
+\item duljina latica
 \item širina latica
 \end{itemize}
 
+
 Sve vrijednosti su predstavljene u centimetrima.
-
 Nekoliko uzoraka je prikazano sljedećom tablicom.
-
+\newpage
+\captionof{table}{Uzorci problema Iris}
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
-Dužina lapa & Širina lapa & Dužina latica & Širina latica & Porodica & Oznaka \\
+Duljina lapa & Širina lapa & Duljina latica & Širina latica & Porodica & Oznaka \\
 \hline
 5.1 & 3.5 & 1.4 & 0.2 & \textit{I. setoosa} & 0 \\
 \hline
@@ -496,13 +497,13 @@ Detaljnija analiza za različite veličine populacije je prikazana na slici 5.2.
 
 \begin{figure}[htb]
 \centering
-\includegraphics[scale=0.5]{grafovi/boxplotIrisSTest}
+\includegraphics[scale=0.5]{grafovi/boxplotIrisSTest3}
 \caption{Regresijski GP s jednim stablom populacije veličine 100 ispitan s različitim faktorima mutacije - problem Iris}
 \end{figure}
 
 \begin{figure}[htb]
 \centering
-\includegraphics[scale=0.5]{grafovi/boxplotIrisS}
+\includegraphics[scale=0.5]{grafovi/boxplotIrisS2}
 \caption{Regresijski GP s jednim stablom različitih veličina populacije ispitan s faktorom mutacije 0.7 - problem Iris}
 \end{figure}
 
@@ -512,13 +513,13 @@ Na slici 5.3 se uočava da se najbolji rezultati postižu za faktor mutacije 0.7
 
 \begin{figure}[htb]
 \centering
-\includegraphics[scale=0.5]{grafovi/boxplotIrisMTest}
+\includegraphics[scale=0.5]{grafovi/boxplotIrisMTest3}
 \caption{Regresijski GP s više stabala populacije veličine 100 ispitan s različitim faktorima mutacije - problem Iris}
 \end{figure}
 
 \begin{figure}[htb]
 \centering
-\includegraphics[scale=0.5]{grafovi/boxplotIrisM}
+\includegraphics[scale=0.5]{grafovi/boxplotIrisM2}
 \caption{Regresijski GP s više stabala različitih veličina populacije ispitan s faktorom mutacije 0.7 - problem Iris}
 \end{figure}
 
@@ -686,6 +687,38 @@ Porastom veličine populacije povećava se i kvaliteta rješenja. U ovom slučaj
 \includegraphics[scale=0.45]{grafovi/automobili2-3}
 \caption{Klasifikator s više stabala - problem ispitivanja automobila}
 \end{figure}
+
+\newpage
+U tablicama 5.2 i 5.3 se nalaze parametri s kojim su postignuti najbolji rezultati za sve primjere.
+
+\begin{table}[H]
+\captionof{table}{Rezultati za regresijski GP s jednim stablom}
+\begin{center}
+\begin{tabular}{| c | c | c |}
+\hline
+Problem & Faktor mutacije & Veličina populacije \\
+\hline
+Cvijet Iris & 0.7 & 500 \\
+Klasifikacija stakla & 0.7 & 500 \\
+Ispitivanje automobila & 0.5 & 500 \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+\begin{table}[H]
+\captionof{table}{Rezultati za regresijski GP s više stabala}
+\begin{center}
+\begin{tabular}{| c | c | c |}
+\hline
+Problem & Faktor mutacije & Veličina populacije \\
+\hline
+Cvijet Iris & 0.7 & 500 \\
+Klasifikacija stakla & 0.7 & 50 \\
+Ispitivanje automobila & 0.7 & 200 \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
 
 
 \chapter{Zaključak}
